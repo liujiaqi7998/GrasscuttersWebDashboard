@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>websocket测试页面</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+    </script>
+    <style>
+        #app{
+            width: 700px;
+            margin: 40px auto;
+        }
+        .msg-box{
+            margin-top: 20px;
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but websocket测试页面 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app">
+    <div>
+        <span>测试地址（例如：ws://10.0.0.123:8080）</span>
+        <input type="text" id="wsUrl" style="width: 200px;margin-right: 20px">
+        <button id="start">建立链接</button>
+    </div>
+    <div style="margin-top: 20px">
+        <span>发送的消息文本</span>
+        <input type="text" id="send" style="width: 200px;margin-right: 20px">
+        <button id="sendBtn">发送消息</button>
+        <button id="clearn">清空显示消息日志</button>
+    </div>
+    <div class="msg-box">
+        <div id="msg-text"></div>
+    </div>
+</div>
+<script>
+    var ws = null
+    $("#start").click(function(){
+        try{
+            let url = $("#wsUrl")[0].value
+            ws = new WebSocket(url);
+            //申请一个WebSocket对象，参数是服务端地址，同http协议使用http://开头一样，WebSocket协议的url使用ws://开头，另外安全的WebSocket协议使用wss://开头
+            ws.onopen = function(){
+                addMsg('建立链接成功')
+            }
+            ws.onmessage = function(e){
+                //当客户端收到服务端发来的消息时，触发onmessage事件，参数e.data包含server传递过来的数据
+                addMsg('收到服务端消息：' + JSON.stringify(e.data))
+                console.log(e.data)
+            }
+            ws.onclose = function(e){
+                //当客户端收到服务端发送的关闭连接请求时，触发onclose事件
+                addMsg('链接关闭')
+                ws=null
+            }
+            ws.onerror = function(e){
+                //如果出现连接、处理、接收、发送数据失败的时候触发onerror事件
+                addMsg('链接错误，错误信息：'+ e)
+                ws=null
+            }
+        }
+        catch(error){
+            alert(error)
+        }
+    })
+    $("#sendBtn").click(function(){
+        if(ws){
+            let info = $("#send")[0].value
+            ws.send(info); //将消息发送到服务端
+            addMsg('发送消息：'+info)
+        }
+    })
+    $("#clearn").click(function(){
+        document.getElementById("msg-text").innerHTML = ""
+    })
+    function addMsg(msg){
+        let hn = document.createElement("p");  //创建一个元素节点
+        var ht = document.createTextNode(msg); //创建一个文本节点
+        hn.appendChild(ht);  //增加文本节点'ht'到元素节点'hn'上
+        var element= document.getElementById('msg-text'); //获取id为'p1'的元素节点
+        element.appendChild(hn);  //添加元素节点'hn'到节点'element'上
+    }
+</script>
+</body>
+</html>

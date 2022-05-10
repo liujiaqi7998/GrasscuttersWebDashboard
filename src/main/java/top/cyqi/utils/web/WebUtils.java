@@ -1,20 +1,26 @@
 package top.cyqi.utils.web;
 
 
-import emu.grasscutter.utils.Utils;
-import express.Express;
-import io.javalin.http.staticfiles.Location;
-import top.cyqi.GrasscuttersWebDashboard;
-import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.UUID;
 
 public class WebUtils {
 
     public static String PAGE_ROOT = "/Dashboard";
 
-    public static void addStaticFiles(File staticRoot) {
-        Express app = GrasscuttersWebDashboard.getDispatchServer().getServer();
-        app.raw().config.precompressStaticFiles = false; //必须设置为 FALSE，否则图像等文件将出现损坏
-        app.raw().config.addStaticFiles(PAGE_ROOT, staticRoot.getAbsolutePath(), Location.EXTERNAL);
-        app.raw().config.addSinglePageRoot(PAGE_ROOT, Utils.toFilePath(staticRoot.getPath() + "/index.html"), Location.EXTERNAL);
+    public static String getUUID() {
+        return UUID.randomUUID().toString();
+    }
+
+    public static String getIP() {
+        //获取主机IP地址
+        String hostAddress = "";
+        try {
+            hostAddress = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+        return hostAddress;
     }
 }
