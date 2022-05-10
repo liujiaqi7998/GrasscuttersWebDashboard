@@ -9,7 +9,7 @@ import java.io.File;
 
 public class WebUtils {
 
-    public static final String PAGE_ROOT = "/Dashboard";
+    public static String PAGE_ROOT = "/Dashboard";
 
     public static void addStaticFiles(File staticRoot) {
         Express app = GrasscuttersWebDashboard.getDispatchServer().getServer();

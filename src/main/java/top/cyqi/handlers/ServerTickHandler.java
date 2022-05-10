@@ -9,7 +9,7 @@ import top.cyqi.websocket.json.WSData;
 
 import java.time.Instant;
 
-//循环更新前端数据
+//循环更新数据
 
 public class ServerTickHandler implements EventConsumer<ServerTickEvent> {
     private static Instant firstTick;
