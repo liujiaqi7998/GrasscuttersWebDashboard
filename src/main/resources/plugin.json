@@ -1,0 +1,14 @@
+{
+  "name": "PluginTemplate",
+  "description": "The Grasscutter example plugin, which uses Maven.",
+  "version": "1.0.2-dev",
+  "authors": [ "KingRainbow44" ],
+  
+  "mainClass": "xyz.grasscutters.pltm.PluginTemplate",
+  
+  "comments": [
+    "This comments block doesn't need to be in your plugin.json.",
+    "The mainClass should include the FQDN of the main plugin class.",
+    "Required fields are: 'name', 'description', and 'mainClass'."
+  ]
+}
