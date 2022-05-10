@@ -17,11 +17,11 @@ public class WebSocketServer {
     public void start() {
         Express app = GrasscuttersWebDashboard.getDispatchServer().getServer();
 
-        app.ws("/gm", ws -> {
+        app.ws("/Dashboard", ws -> {
             ws.onConnect(ctx -> {
                 String username = "Not logged in";
                 userUsernameMap.put(ctx, username);
-                Grasscutter.getLogger().info("[GCGM] User logged in to panel");
+                Grasscutter.getLogger().info("[WEB控制台] 用户登录到了Web控制台，用户名为：" + username);
             });
         });
     }

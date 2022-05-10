@@ -30,7 +30,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
     public void onLoad() {
         INSTANCE = this;
         webData = new File(Utils.toFilePath(getDataFolder().getPath() + "/www"));
-        serverTickEventHandler = new EventHandler<ServerTickEvent>(ServerTickEvent.class);
+        serverTickEventHandler = new EventHandler<>(ServerTickEvent.class);
         serverTickEventHandler.listener(new ServerTickHandler());
         serverTickEventHandler.priority(HandlerPriority.HIGH);
         File pluginDataDir = getDataFolder();
@@ -63,7 +63,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
             webSocketServer = new WebSocketServer();
             webSocketServer.start();
             serverTickEventHandler.register();
-            Grasscutter.getLogger().info("[WEB控制台] 启用完毕");
+            Grasscutter.getLogger().info("[WEB控制台] 启动完成！！");
             Grasscutter.getLogger().info("[WEB控制台] 面板访问地址：" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
         } else {
             Grasscutter.getLogger().error("[WEB控制台] 无法在其插件目录中找到 www 文件夹");
