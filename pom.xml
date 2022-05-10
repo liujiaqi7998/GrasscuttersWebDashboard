@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>xyz.grasscutters</groupId> <!-- Replace with your groupId -->
-    <artifactId>PluginTemplate</artifactId> <!-- Replace with your plugin name. -->
-    <version>1.0.3-dev</version> <!-- The template's version corresponds to the latest API version. -->
+    <groupId>top.cyqi</groupId> <!-- Replace with your groupId -->
+    <artifactId>GrasscuttersWebDashboard</artifactId> <!-- Replace with your plugin name. -->
+    <version>1.0.0</version> <!-- The template's version corresponds to the latest API version. -->
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -26,9 +26,9 @@
     
     <dependencies>
         <dependency>
-            <groupId>xyz.grasscutters</groupId> <!-- Versions below 1.0.3-dev are on 'tech.xigam' -->
+            <groupId>xyz.grasscutters</groupId>
             <artifactId>grasscutter</artifactId>
-            <version>1.0.3-dev</version> <!-- Replace with the latest version of the API. -->
+            <version>1.1.0</version>
         </dependency>
     </dependencies>
 </project>
