@@ -1,15 +1,15 @@
 package top.cyqi.utils;
 
-import emu.grasscutter.Grasscutter;
+import top.cyqi.GrasscuttersWebDashboard;
 
 public class GCGMUtils {
 
     private static final Runtime RUNTIME = Runtime.getRuntime();
 
     public static String GetDispatchAddress() {
-        return "ws" + (Grasscutter.getConfig().getDispatchOptions().FrontHTTPS ? "s" : "") + "://" +
-                (Grasscutter.getConfig().getDispatchOptions().PublicIp.isEmpty() ? Grasscutter.getConfig().getDispatchOptions().Ip : Grasscutter.getConfig().getDispatchOptions().PublicIp) +
-                ":" + (Grasscutter.getConfig().getDispatchOptions().PublicPort != 0 ? Grasscutter.getConfig().getDispatchOptions().PublicPort : Grasscutter.getConfig().getDispatchOptions().Port);
+        return "ws" + (GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().FrontHTTPS ? "s" : "") + "://" +
+                (GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().PublicIp.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().Ip : GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().PublicIp) +
+                ":" + (GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().PublicPort != 0 ? GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().PublicPort : GrasscuttersWebDashboard.getServerConfig().getDispatchOptions().Port);
     }
 
     public static long GetFreeJVMMemory() {

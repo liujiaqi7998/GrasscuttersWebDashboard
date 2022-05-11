@@ -1,3 +1,5 @@
 {
-  "token": "GrasscuttersWebDashboard"
+  "token": "GrasscuttersWebDashboard",
+  "WebtoolsURL": "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/webtools.html",
+  "key_timeout": 180000
 }
