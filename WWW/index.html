@@ -59,17 +59,31 @@
             </div>
         </div>
         <div class="mui-card-footer">
-                <label>命令:</label>
-                <input id="id-cmd-input" type="text" style="width: 80%" placeholder="在这里输入命令，不要带/">
-                <button class="mui-btn mui-btn-primary" type="button" onclick="do_cmd()">执行</button>
+            <label>命令:</label>
+            <input id="id-cmd-input" type="text" style="width: 80%" placeholder="在这里输入命令，不要带/">
+            <button class="mui-btn mui-btn-primary" type="button" data-loading-text="请稍后" onclick="do_cmd()">执行</button>
         </div>
     </div>
+
+
+    <div class="mui-card" style="margin-bottom: 35px;">
+        <div class="mui-card-header">在线玩家<button type="button" data-loading-text="请稍后" class="mui-btn" onclick="updatePlayerList()">刷新</button></div>
+        <ul class="mui-table-view" id="id-player-list">
+
+        </ul>
+    </div>
+
+
 </div>
 
 <script>
     mui.init();
     mui.prompt("请输入服务器连接地址", "服务器连接地址", "提示", ["连接"], ContentServer)
-    var ws;
+    let ws;
+
+    function updatePlayerList() {
+        ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
+    }
 
     function ContentServer(value) {
         const server_address = value.value;
@@ -87,6 +101,7 @@
             console.log("连接成功");
             mui.toast("连接成功");
             ws.send("{\"type\":\"State\",\"data\":\"0\"}");
+            ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
         }
 
         ws.onmessage = function (event) {
@@ -114,6 +129,28 @@
                     document.getElementById("id-player-num-title").innerHTML = "在线玩家数量:" + tick_data['playerCount'];
                     document.getElementById("id-tick-time-title").innerHTML = "Tick耗时:" + tick_data['tickTimeElapsed'];
                     break;
+                case 'PlayerList':
+                    const player_list = server_msg['data'];
+                    //遍历玩家列表
+                    let player_list_html = "";
+                    for (let i = 0; i < player_list.length; i++) {
+                        const player_data = player_list[i];
+                        player_list_html += "<li class=\"mui-table-view-cell\">\n" +
+                            "                        <div class=\"mui-slider-cell\">\n" +
+                            "                            <div class=\"mui-slider-cell-right\">\n" +
+                            "                                <p class=\"mui-ellipsis\">UID:" + player_data['uid'] + "</p>\n" +
+                            "                                <p class=\"mui-ellipsis\">昵称:" + player_data['nickname'] + "</p>\n" +
+                            "                                <p class=\"mui-ellipsis\">签名:" + player_data['signature'] + "</p>\n" +
+                            "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
+                            "                                <p class=\"mui-ellipsis\">世界等级:" + player_data['worldLevel'] + "级</p>\n" +
+                            "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
+                            "                                <p class=\"mui-ellipsis\">坐标:" + player_data['pos'] + "</p>\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                    </li>";
+                    }
+                    document.getElementById("id-player-list").innerHTML = player_list_html;
+                    break;
                 default:
                     break;
             }
@@ -126,7 +163,7 @@
         }
     }
 
-    function do_cmd() {
+    function do_cmd(e) {
         const send_msg = {
             "type": "CMD",
             "data": document.getElementById("id-cmd-input").value
