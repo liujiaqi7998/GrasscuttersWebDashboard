@@ -1,0 +1,160 @@
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>Grasscutters 网页控制台</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <script src="js/mui.min.js"></script>
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">Grasscutters 网页控制台</h1>
+    </header>
+</head>
+
+<body>
+<div class="mui-content">
+    <div class="mui-card">
+        <div class="mui-card-header">运行状态</div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <div class="mui-text-center">
+                    <h5 id="id-uptime-title">系统运行时长:</h5>
+                </div>
+            </div>
+            <div class="mui-card-content-inner">
+                <div class="mui-text-center">
+                    <h5 id="id-player-num-title">在线玩家数量:</h5>
+                </div>
+            </div>
+            <div class="mui-card-content-inner">
+                <div class="mui-text-center">
+                    <h5 id="id-tick-time-title">Tick耗时:</h5>
+                </div>
+            </div>
+            <div class="mui-card-content-inner">
+                <div class="mui-text-center">
+                    <h5 id="id-memory-title">内存占用:0/0</h5>
+                    <p id="id-memory-progressbar" class="mui-progressbar mui-progressbar-in"><span
+                            style="transform: translate3d(-90%, 0px, 0px);"></span></p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="mui-card">
+        <div class="mui-card-header">系统信息</div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner" id="id-BaseData">
+            </div>
+        </div>
+    </div>
+    <div class="mui-card">
+        <div class="mui-card-header">控制台</div>
+        <div class="mui-card-content">
+            <div class="mui-input-row" contenteditable="true" style="margin: 10px 5px;">
+                <textarea id="cmd_msg-textarea" readonly="readonly" rows="10" placeholder=""></textarea>
+            </div>
+        </div>
+        <div class="mui-card-footer">
+                <label>命令:</label>
+                <input id="id-cmd-input" type="text" style="width: 80%" placeholder="在这里输入命令，不要带/">
+                <button class="mui-btn mui-btn-primary" type="button" onclick="do_cmd()">执行</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    mui.init();
+    mui.prompt("请输入服务器连接地址", "服务器连接地址", "提示", ["连接"], ContentServer)
+    var ws;
+
+    function ContentServer(value) {
+        const server_address = value.value;
+        console.log(server_address);
+
+        if (server_address.indexOf("ws://") < 0 && server_address.indexOf("wss://") < 0) {
+            mui.alert("服务器地址不正确", "连接失败", "刷新", function () {
+                location.reload();
+            });
+            return;
+        }
+        //判断server_address是否是一个有效的websocket地址
+        ws = new WebSocket(server_address);
+        ws.onopen = function () {
+            console.log("连接成功");
+            mui.toast("连接成功");
+            ws.send("{\"type\":\"State\",\"data\":\"0\"}");
+        }
+
+        ws.onmessage = function (event) {
+            const server_msg = JSON.parse(event.data);
+            switch (server_msg['eventName']) {
+                case 'BaseData':
+                    const base_data = server_msg['data'];
+                    const str_temp = "服务器名称:" + base_data['ServerName'] + "<br/>\n" +
+                        "                系统:" + base_data['SystemVersion'] + "<br/>\n" +
+                        "                监听IP:" + base_data['IP'] + "<br/>\n" +
+                        "                JAVA版本:" + base_data['JavaVersion'] + "<br/>\n" +
+                        "                割草机版本:" + base_data['GrVersion'];
+                    document.getElementById("id-BaseData").innerHTML = str_temp;
+                    break;
+                case 'cmd_msg':
+                    const cmd_msg = server_msg['data'];
+                    document.getElementById("cmd_msg-textarea").value += cmd_msg + "\n";
+                    break;
+                case 'tick':
+                    const tick_data = server_msg['data'];
+                    const memory_used = tick_data['getAllocatedMemory'] - tick_data['getFreeMemory'];
+                    mui("#id-memory-progressbar").progressbar().setProgress(memory_used / tick_data['getAllocatedMemory'] * 100);
+                    document.getElementById("id-memory-title").innerHTML = "内存占用:" + memory_used + "/" + tick_data['getAllocatedMemory'];
+                    document.getElementById("id-uptime-title").innerHTML = "系统运行时长:" + formatSecToStr(Math.ceil(tick_data['serverUptime'] / 1000));
+                    document.getElementById("id-player-num-title").innerHTML = "在线玩家数量:" + tick_data['playerCount'];
+                    document.getElementById("id-tick-time-title").innerHTML = "Tick耗时:" + tick_data['tickTimeElapsed'];
+                    break;
+                default:
+                    break;
+            }
+        }
+        ws.onclose = function () {
+            console.log("连接关闭");
+            mui.alert("与服务器断开连接", "连接失败", "刷新", function () {
+                location.reload();
+            });
+        }
+    }
+
+    function do_cmd() {
+        const send_msg = {
+            "type": "CMD",
+            "data": document.getElementById("id-cmd-input").value
+        };
+        const send_msg_str = JSON.stringify(send_msg);
+        ws.send(send_msg_str);
+    }
+
+    function formatSecToStr(seconds) {
+        let daySec = 24 * 60 * 60;
+        let hourSec = 60 * 60;
+        let minuteSec = 60;
+        let dd = Math.floor(seconds / daySec);
+        let hh = Math.floor((seconds % daySec) / hourSec);
+        let mm = Math.floor((seconds % hourSec) / minuteSec);
+        let ss = seconds % minuteSec;
+        if (dd > 0) {
+            return dd + "天" + hh + "小时" + mm + "分钟" + ss + "秒";
+        } else if (hh > 0) {
+            return hh + "小时" + mm + "分钟" + ss + "秒";
+        } else if (mm > 0) {
+            return mm + "分钟" + ss + "秒";
+        } else {
+            return ss + "秒";
+        }
+    }
+</script>
+
+</body>
+
+</html>
