@@ -3,6 +3,7 @@ package top.cyqi.websocket;
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.CommandMap;
 import io.javalin.websocket.WsMessageContext;
+import top.cyqi.GrasscuttersWebDashboard;
 import top.cyqi.websocket.json.BaseData;
 import top.cyqi.websocket.json.WSData;
 
@@ -16,7 +17,12 @@ public class ServerUtils {
                 CommandMap commandMap = Grasscutter.getGameServer().getCommandMap();
                 commandMap.invoke(null, null, data);
             }
-            case "State" -> wsMessageContext.send(new WSData("BaseData", BaseData.getJSON()));
+            case "State" -> {
+                wsMessageContext.send(new WSData("BaseData", GrasscuttersWebDashboard.baseData));
+            }
+            case "Player" -> {
+                GrasscuttersWebDashboard.getGameServer().getPlayers();
+            }
         }
     }
 }

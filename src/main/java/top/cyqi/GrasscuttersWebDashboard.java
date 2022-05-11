@@ -40,6 +40,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
 
     private PluginConfig configuration;
 
+    public static BaseData baseData;
     @Override
     public void onLoad() {
         INSTANCE = this;
@@ -76,13 +77,14 @@ public final class GrasscuttersWebDashboard extends Plugin {
         serverTickEventHandler.listener(new ServerTickHandler());
         serverTickEventHandler.priority(HandlerPriority.HIGH);
         //获取系统版本计算机名称等信息
-        BaseData.SystemVersion = System.getProperty("os.name") + " " + System.getProperty("os.version") + " " + System.getProperty("os.arch");
-        BaseData.ServerName = getGameServer().getName();
+        baseData = new BaseData();
+        baseData.SystemVersion = System.getProperty("os.name") + " " + System.getProperty("os.version") + " " + System.getProperty("os.arch");
+        baseData.ServerName = Grasscutter.getConfig().GameServer.ServerNickname;
         //获取JAVA版本
-        BaseData.JavaVersion = System.getProperty("java.version");
+        baseData.JavaVersion = System.getProperty("java.version");
         //获取IP地址
-        BaseData.IP = WebUtils.getIP();
-        BaseData.GrVersion = getVersion();
+        baseData.IP = Grasscutter.getConfig().GameServer.Ip;
+        baseData.GrVersion = getVersion();
         Grasscutter.getLogger().info("[WEB控制台] 加载中...");
     }
 
