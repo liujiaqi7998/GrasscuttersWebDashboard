@@ -11,10 +11,10 @@ import top.cyqi.websocket.ServerUtils;
 import top.cyqi.websocket.json.PlayerWebKey;
 import top.cyqi.websocket.json.WSData;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @Command(label = "webtools",
         usage = "webtools",
@@ -63,9 +63,12 @@ public class PluginCommand implements CommandHandler {
         Mail mail = new Mail();
         mail.mailContent.title = "登录网页管理工具验证码";
         mail.mailContent.sender = "网页管理工具";
-        String Url = WebUtils.WebtoolsURL + "?key=" + random + "&server=" + GCGMUtils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
-        //编码URL
-        mail.mailContent.content = "您的验证码是: " + random + "\n\n" + "，请点击以下链接打开: \n" + "<type=\"browser\" text=\"打开网页工具箱\" href=\"" + Url + "\"/>";
+
+        String ServerUrl = GCGMUtils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
+        //url编码
+        ServerUrl = URLEncoder.encode(ServerUrl, StandardCharsets.UTF_8);
+        String Url = WebUtils.WebtoolsURL + "?key=" + random + "&server=" + ServerUrl;
+        mail.mailContent.content = "您的验证码是: " + random + "\n\n" + "请点击以下链接打开: \n" + "<type=\"browser\" text=\"打开网页工具箱\" href=\"" + Url + "\"/>";
         targetPlayer.sendMail(mail);
         CommandHandler.sendMessage(sender, "[WEB控制台] 给 [" + targetPlayer.getNickname() + "] 发送WebTools验证码邮件成功！");
     }

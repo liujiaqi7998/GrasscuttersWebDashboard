@@ -28,26 +28,26 @@ public class WebSocketServer {
                 String key = ctx.queryParam("key");
                 if (key == null) {
                     ctx.send(new WSData("auth", "密钥不能为空"));
-                    ctx.session.close();
+                    ctx.session.close(1700, "密钥不能为空");
                     return;
                 }
                 //判断key是否是8位
                 if (key.length() != 8) {
                     ctx.send(new WSData("auth", "密钥格式不正确"));
-                    ctx.session.close();
+                    ctx.session.close(1701, "密钥格式不正确");
                     return;
                 }
                 //判断tempPlayersData是否包含key
                 if (!ServerUtils.tempPlayersData.containsKey(key)) {
                     ctx.send(new WSData("auth", "密钥不存在,或者已经过期"));
-                    ctx.session.close();
+                    ctx.session.close(1702, "密钥不存在,或者已经过期");
                     return;
                 }
                 //判断密钥是否超过GrasscuttersWebDashboard.key_timeout分钟
                 if (System.currentTimeMillis() - ServerUtils.tempPlayersData.get(key).getTime > 3 * 60 * 1000) {
                     ServerUtils.tempPlayersData.remove(key);
                     ctx.send(new WSData("auth", "密钥已过期，请重新获取"));
-                    ctx.session.close();
+                    ctx.session.close(1703, "密钥已过期，请重新获取");
                     return;
                 }
                 WebToolsClitenContextMap.put(ctx, key);

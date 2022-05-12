@@ -42,7 +42,14 @@
 
     let ServerAddress = getQueryVariable("server");
     let ServerKey = getQueryVariable("key");
-    if (ServerAddress === false) {
+
+    if (ServerAddress !== false) {
+        //URL解码
+        ServerAddress = decodeURIComponent(ServerAddress);
+        console.log(ServerAddress);
+    }
+
+    if (ServerAddress === false || ServerKey === false) {
         mui.prompt("请输入服务器连接地址", "服务器连接地址", "提示", ["连接"], function (e) {
             const server_address = e.value;
             if (server_address.indexOf("ws://") < 0 && server_address.indexOf("wss://") < 0) {
@@ -66,71 +73,70 @@
             });
 
         });
-    } else if (ServerKey === false) {
-        mui.prompt("请输入连接码", "连接码", "提示", ["连接"], function (e) {
-            const server_key = e.value;
-            if (server_key.length !== 8) {
-                mui.alert("连接码不正确", "连接失败", "刷新", function () {
-                    location.reload();
-                });
-            } else {
-                ServerKey = server_key;
-                ContentServer();
-            }
-        });
+    } else {
+        ContentServer();
     }
 
 
-    let ws;
+    var ws;
 
     function updatePlayerList() {
         ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
     }
 
+    function deal_onmessage(event) {
+        const server_msg = JSON.parse(event.data);
+        switch (server_msg['eventName']) {
+            case "auth":
+                if (server_msg['data'] !== "连接成功") {
+                    mui.alert(server_msg['data'], "连接失败", "刷新", function () {
+                        location.reload();
+                    });
+                }
+                break;
+            case 'PlayerList':
+                const player_list = server_msg['data'];
+                //遍历玩家列表
+                let player_list_html = "";
+                for (let i = 0; i < player_list.length; i++) {
+                    const player_data = player_list[i];
+                    player_list_html += "<li class=\"mui-table-view-cell\">\n" +
+                        "                        <div class=\"mui-slider-cell\">\n" +
+                        "                            <div class=\"mui-slider-cell-right\">\n" +
+                        "                                <p class=\"mui-ellipsis\">UID:" + player_data['uid'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">昵称:" + player_data['nickname'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">签名:" + player_data['signature'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">世界等级:" + player_data['worldLevel'] + "级</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">坐标:" + player_data['pos'] + "</p>\n" +
+                        "                            </div>\n" +
+                        "                        </div>\n" +
+                        "                    </li>";
+                }
+                document.getElementById("id-player-list").innerHTML = player_list_html;
+                break;
+            default:
+                break;
+        }
+    }
+
     function ContentServer() {
         //判断server_address是否是一个有效的websocket地址
-        ws = new WebSocket(ServerAddress + "?key=" + ServerKey);
-        ws.onmessage = function (event) {
-            const server_msg = JSON.parse(event.data);
-            switch (server_msg['eventName']) {
-                case 'auth':
-                    if (server_msg['data'] === '连接成功') {
-                        mui.toast("连接成功");
-                    } else {
-                        mui.alert(server_msg['data'], "连接失败", "刷新", function () {
-                            location.reload();
-                        });
-                    }
-                    break;
-                case 'PlayerList':
-                    const player_list = server_msg['data'];
-                    //遍历玩家列表
-                    let player_list_html = "";
-                    for (let i = 0; i < player_list.length; i++) {
-                        const player_data = player_list[i];
-                        player_list_html += "<li class=\"mui-table-view-cell\">\n" +
-                            "                        <div class=\"mui-slider-cell\">\n" +
-                            "                            <div class=\"mui-slider-cell-right\">\n" +
-                            "                                <p class=\"mui-ellipsis\">UID:" + player_data['uid'] + "</p>\n" +
-                            "                                <p class=\"mui-ellipsis\">昵称:" + player_data['nickname'] + "</p>\n" +
-                            "                                <p class=\"mui-ellipsis\">签名:" + player_data['signature'] + "</p>\n" +
-                            "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
-                            "                                <p class=\"mui-ellipsis\">世界等级:" + player_data['worldLevel'] + "级</p>\n" +
-                            "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
-                            "                                <p class=\"mui-ellipsis\">坐标:" + player_data['pos'] + "</p>\n" +
-                            "                            </div>\n" +
-                            "                        </div>\n" +
-                            "                    </li>";
-                    }
-                    document.getElementById("id-player-list").innerHTML = player_list_html;
-                    break;
-                default:
-                    break;
+        try {
+            ws = new WebSocket(ServerAddress + "?key=" + ServerKey)
+            ws.onopen = function () {
+                console.log("连接成功");
+                updatePlayerList();
             }
-        }
-        ws.onclose = function () {
-            console.log("连接关闭");
-            mui.alert("与服务器断开连接，请刷新", "连接失败", "确定", function () {
+            ws.onclose = () => {
+                mui.alert("连接已断开", "提示", "确定", function () {
+                });
+            };
+            ws.onmessage = deal_onmessage;
+        } catch (e) {
+            mui.alert(e.message, "连接失败", "刷新", function () {
+                location.reload();
             });
         }
     }

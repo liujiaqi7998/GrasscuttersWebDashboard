@@ -66,8 +66,12 @@ public final class GrasscuttersWebDashboard extends Plugin {
             Grasscutter.getLogger().error("[WEB控制台] 配置文件读取错误", exception);
             return;
         }
+
+
         key_timeout = configuration.key_timeout;//读取配置文件中的key超时时间
         WebUtils.PAGE_ROOT = "/Dashboard/" + this.configuration.token;
+        WebUtils.WebtoolsURL = this.configuration.WebtoolsURL;
+
         serverTickEventHandler = new EventHandler<>(ServerTickEvent.class);
         serverTickEventHandler.listener(new ServerTickHandler());
         serverTickEventHandler.priority(HandlerPriority.HIGH);
