@@ -3,10 +3,9 @@ package top.cyqi.websocket;
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.CommandMap;
 import emu.grasscutter.game.player.Player;
-import emu.grasscutter.utils.MessageHandler;
 import io.javalin.websocket.WsMessageContext;
 import top.cyqi.GrasscuttersWebDashboard;
-import top.cyqi.utils.web.WebToolsMessageHandler;
+import top.cyqi.handlers.WebToolsMessageHandler;
 import top.cyqi.websocket.json.PlayerData;
 import top.cyqi.websocket.json.PlayerWebKey;
 import top.cyqi.websocket.json.WSData;
@@ -59,9 +58,9 @@ public class ServerUtils {
     public static void WebToolsDealMessage(Player player, String type, String data, WsMessageContext wsMessageContext) {
         switch (type) {
             case "CMD" -> {
-//                WebToolsMessageHandler resultCollector = new WebToolsMessageHandler();
-//                resultCollector.wsMessageContext = wsMessageContext;
-//                player.setMessageHandler(resultCollector);
+                WebToolsMessageHandler resultCollector = new WebToolsMessageHandler();
+                resultCollector.wsMessageContext = wsMessageContext;
+                player.setMessageHandler(resultCollector);
                 CommandMap commandMap = Grasscutter.getGameServer().getCommandMap();
                 try {
                     commandMap.invoke(player, player, data);

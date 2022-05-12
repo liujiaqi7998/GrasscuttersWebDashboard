@@ -15,8 +15,8 @@ import java.util.Map;
 @Command(label = "webtools",
         usage = "webtools",
         description = "发送 webtools 验证码邮件",
-        aliases = {"webtools"},
-        permission = "webtools.console")
+        aliases = {"webt", "wt"},
+        permission = "GrasscuttersWebDashboard.webtools")
 public class PluginCommand implements CommandHandler {
 
     public void execute(Player sender, Player targetPlayer, List<String> args) {

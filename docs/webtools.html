@@ -153,6 +153,9 @@
                     });
                 }
                 break;
+            case "success":
+                mui.toast(server_msg['data']);
+                break;
             case 'PlayerList':
                 const player_list = server_msg['data'];
                 //遍历玩家列表
