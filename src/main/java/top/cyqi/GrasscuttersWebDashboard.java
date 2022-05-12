@@ -2,7 +2,6 @@ package top.cyqi;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
-import emu.grasscutter.Config;
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.CommandMap;
 import emu.grasscutter.plugin.Plugin;
@@ -12,6 +11,7 @@ import emu.grasscutter.server.event.EventHandler;
 import emu.grasscutter.server.event.HandlerPriority;
 import emu.grasscutter.server.event.game.ServerTickEvent;
 import emu.grasscutter.server.game.GameServer;
+import emu.grasscutter.utils.ConfigContainer;
 import top.cyqi.handlers.ServerTickHandler;
 import top.cyqi.utils.GCGMUtils;
 import top.cyqi.utils.PluginCommand;
@@ -78,11 +78,11 @@ public final class GrasscuttersWebDashboard extends Plugin {
         //获取系统版本计算机名称等信息
         baseData = new BaseData();
         baseData.SystemVersion = System.getProperty("os.name") + " " + System.getProperty("os.version") + " " + System.getProperty("os.arch");
-        baseData.ServerName = getServerConfig().GameServer.ServerNickname;
+        baseData.ServerName = getServerConfig().server.dispatch.defaultName;
         //获取JAVA版本
         baseData.JavaVersion = System.getProperty("java.version");
         //获取IP地址
-        baseData.IP = getServerConfig().GameServer.Ip;
+        baseData.IP = getServerConfig().server.dispatch.bindAddress;
         baseData.GrVersion = getVersion();
         Grasscutter.getLogger().info("[WEB控制台] 加载中...");
     }
@@ -126,7 +126,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
         return GrasscuttersWebDashboard.getInstance().getServer();
     }
 
-    public static Config getServerConfig() {
+    public static ConfigContainer getServerConfig() {
         return Grasscutter.getConfig();
     }
 
