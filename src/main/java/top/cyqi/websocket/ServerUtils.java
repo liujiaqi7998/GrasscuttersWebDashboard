@@ -60,6 +60,7 @@ public class ServerUtils {
             case "CMD" -> {
                 WebToolsMessageHandler resultCollector = new WebToolsMessageHandler();
                 resultCollector.wsMessageContext = wsMessageContext;
+                resultCollector.player = player;
                 player.setMessageHandler(resultCollector);
                 CommandMap commandMap = Grasscutter.getGameServer().getCommandMap();
                 try {
