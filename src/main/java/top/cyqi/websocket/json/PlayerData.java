@@ -11,6 +11,7 @@ public class PlayerData {
     public int headImage;
     public int worldLevel;
     public String pos;
+    public int SceneId;
     public int Level;
 
 }

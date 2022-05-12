@@ -64,9 +64,7 @@ public class PluginCommand implements CommandHandler {
         mail.mailContent.title = "登录网页管理工具验证码";
         mail.mailContent.sender = "网页管理工具";
 
-        String ServerUrl = GCGMUtils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
-        //url编码
-        ServerUrl = URLEncoder.encode(ServerUrl, StandardCharsets.UTF_8);
+        String ServerUrl =GCGMUtils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
         String Url = WebUtils.WebtoolsURL + "?key=" + random + "&server=" + ServerUrl;
         mail.mailContent.content = "您的验证码是: " + random + "\n\n" + "请点击以下链接打开: \n" + "<type=\"browser\" text=\"打开网页工具箱\" href=\"" + Url + "\"/>";
         targetPlayer.sendMail(mail);

@@ -50,6 +50,7 @@ public class ServerUtils {
             playerData.worldLevel = player.getWorldLevel();
             playerData.Level = player.getLevel();
             playerData.pos = player.getPos().toString();
+            playerData.SceneId = player.getSceneId();
             playerDatas.add(playerData);
         }
         wsMessageContext.send(new WSData("PlayerList", playerDatas));
