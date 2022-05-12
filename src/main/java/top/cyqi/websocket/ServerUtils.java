@@ -59,15 +59,14 @@ public class ServerUtils {
     public static void WebToolsDealMessage(Player player, String type, String data, WsMessageContext wsMessageContext) {
         switch (type) {
             case "CMD" -> {
-                WebToolsMessageHandler resultCollector = new WebToolsMessageHandler();
-                resultCollector.wsMessageContext = wsMessageContext;
-                player.setMessageHandler(resultCollector);
+//                WebToolsMessageHandler resultCollector = new WebToolsMessageHandler();
+//                resultCollector.wsMessageContext = wsMessageContext;
+//                player.setMessageHandler(resultCollector);
                 CommandMap commandMap = Grasscutter.getGameServer().getCommandMap();
                 try {
                     commandMap.invoke(player, player, data);
                 } catch (Exception e) {
                     wsMessageContext.send(new WSData("error", e.getMessage()));
-                    break;
                 }
 
             }

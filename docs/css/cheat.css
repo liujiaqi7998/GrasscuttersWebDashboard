@@ -1,0 +1,100 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 3em;
+}
+
+.toolset {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#panel {
+    margin-left: 3em;
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.commandGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 0.5em;
+}
+
+.commandGroup>*:last-child {
+
+    /* margin-left: auto; */
+    margin-right: 0.5em;
+}
+
+.commandGroup input{
+    /* margin-left: 1em; */
+    margin-right: 1em;
+}
+
+hr.solid {
+    border-top: 1px solid #bbb;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-top: -5px;
+    margin-bottom: 8px;
+}
+  
+.hidden {
+    display: none;
+}
+
+.search-box {
+    height: 3em;
+    transition: all ease-in-out 0.5s;
+}
+
+.by-name {
+    overflow-y: auto;
+}
+
+.quality-blue {
+    background: rgb(40, 40, 255);
+    color: #fff;
+}
+
+.quality-orange {
+    background: orange !important;
+    color: #fff;
+}
+
+.quality-green {
+    background: rgb(67, 140, 74) !important;
+    color: #fff;
+}
+
+.quality-white {
+    background: rgb(124, 124, 124) !important;
+    color: #fff;
+}
+
+.quality-unknown {
+    background: rgb(240, 60, 60) !important;
+    color: #fff;
+}
+
+.quality-purple {
+    background: rgb(158, 1, 158) !important;
+    color: #fff;
+}
+
+.quality-gray {
+    background: rgb(187, 187, 187) !important;
+    color: rgb(0, 0, 0) !important;
+
+}

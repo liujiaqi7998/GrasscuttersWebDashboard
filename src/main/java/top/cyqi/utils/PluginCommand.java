@@ -1,6 +1,5 @@
 package top.cyqi.utils;
 
-import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.Command;
 import emu.grasscutter.command.CommandHandler;
 import emu.grasscutter.game.mail.Mail;
@@ -9,7 +8,9 @@ import top.cyqi.GrasscuttersWebDashboard;
 import top.cyqi.utils.web.WebUtils;
 import top.cyqi.websocket.ServerUtils;
 import top.cyqi.websocket.json.PlayerWebKey;
-import java.util.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Command(label = "webtools",
         usage = "webtools",

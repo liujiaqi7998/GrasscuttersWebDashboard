@@ -27,3 +27,5 @@
 本插件开源免费
 
 感谢[Grasscutters/gcgm-plugin: A grasscutter game master web dashboard plugin (github.com)](https://github.com/Grasscutters/gcgm-plugin)提供的帮助
+
+WebTools网页我真的是写不动了，部分代码来自[SpikeHD/MojoFrontend: Frontend for Mojo Console (github.com)](https://github.com/SpikeHD/MojoFrontend)请遵守GNU General Public License v3.0协议
