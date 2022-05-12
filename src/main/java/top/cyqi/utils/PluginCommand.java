@@ -9,11 +9,6 @@ import top.cyqi.GrasscuttersWebDashboard;
 import top.cyqi.utils.web.WebUtils;
 import top.cyqi.websocket.ServerUtils;
 import top.cyqi.websocket.json.PlayerWebKey;
-import top.cyqi.websocket.json.WSData;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Command(label = "webtools",
@@ -45,16 +40,6 @@ public class PluginCommand implements CommandHandler {
             }
         }
 
-        //定时器key_timeout分钟后执行删除
-        String finalRandom = random;
-        new Timer("Auto-delete-" + random).schedule(new TimerTask() {
-            @Override
-            public void run() {
-                ServerUtils.tempPlayersData.remove(finalRandom);
-            }
-        }, GrasscuttersWebDashboard.key_timeout);
-
-
         PlayerWebKey playerWebKey = new PlayerWebKey();
         playerWebKey.Key = random;
         playerWebKey.player = targetPlayer;
@@ -66,7 +51,9 @@ public class PluginCommand implements CommandHandler {
 
         String ServerUrl =GCGMUtils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
         String Url = WebUtils.WebtoolsURL + "?key=" + random + "&server=" + ServerUrl;
-        mail.mailContent.content = "您的验证码是: " + random + "\n\n" + "请点击以下链接打开: \n" + "<type=\"browser\" text=\"打开网页工具箱\" href=\"" + Url + "\"/>";
+        mail.mailContent.content = "您的验证码是: " + random + "\n\n" + "请点击以下链接打开: \n"
+                + "<type=\"webview\" text=\"游戏内打开网页工具箱\" href=\"" + Url + "\"/>"
+                + "<type=\"browser\" text=\"浏览器打开网页工具箱\" href=\"" + Url + "\"/>";
         targetPlayer.sendMail(mail);
         CommandHandler.sendMessage(sender, "[WEB控制台] 给 [" + targetPlayer.getNickname() + "] 发送WebTools验证码邮件成功！");
     }

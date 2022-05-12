@@ -107,6 +107,10 @@
         ws.onmessage = function (event) {
             const server_msg = JSON.parse(event.data);
             switch (server_msg['eventName']) {
+                case 'error':
+                    mui.alert(server_msg['data'], "错误", "刷新", function () {
+                    });
+                    break;
                 case 'BaseData':
                     const base_data = server_msg['data'];
                     const str_temp = "服务器名称:" + base_data['ServerName'] + "<br/>\n" +

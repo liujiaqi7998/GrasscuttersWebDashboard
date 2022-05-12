@@ -8,9 +8,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/mui.min.css">
     <script src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/cheat.js"></script>
+    <script type="text/javascript" src="js/cheat/item_data.js"></script>
+    <script type="text/javascript" src="js/cheat/data.js"></script>
+    <script type="text/javascript" src="js/cheat/quickcommand.js"></script>
+    <script type="text/javascript" src="js/cheat/weapon.js"></script>
+    <script type="text/javascript" src="js/cheat/avatar.js"></script>
+    <script type="text/javascript" src="js/cheat/reli.js"></script>
+    <script type="text/javascript" src="js/cheat/item.js"></script>
+    <script type="text/javascript" src="js/cheat/monster.js"></script>
+
     <header class="mui-bar mui-bar-nav">
         <h1 class="mui-title">Grasscutters 网页控制台</h1>
     </header>
+
 </head>
 
 <body>
@@ -23,6 +34,50 @@
         <ul class="mui-table-view" id="id-player-list">
         </ul>
     </div>
+
+
+    <div class="container">
+        <div class="toolset">
+            <div class="mui-card">
+                <form class="mui-input-group">
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-1'>常用指令</label>
+                        <input id='tab-1' type='radio' name='tabgroupB' checked >
+                    </div>
+
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-2'>角色</label>
+                        <input id='tab-2' type='radio' name='tabgroupB'>
+                    </div>
+
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-3'>武器</label>
+                        <input id='tab-3' type='radio' name='tabgroupB'>
+                    </div>
+
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-4'>圣遗物</label>
+                        <input id='tab-4' type='radio' name='tabgroupB'>
+                    </div>
+
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-5'>道具</label>
+                        <input id='tab-5' type='radio' name='tabgroupB'>
+                    </div>
+
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-6'>怪物</label>
+                        <input id='tab-6' type='radio' name='tabgroupB'>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="panel" class="mui-card" style="margin-bottom: 35px;">
+    </div>
+
 </div>
 
 <script>
@@ -87,6 +142,10 @@
     function deal_onmessage(event) {
         const server_msg = JSON.parse(event.data);
         switch (server_msg['eventName']) {
+            case 'error':
+                mui.alert(server_msg['data'], "错误", "刷新", function () {
+                });
+                break;
             case "auth":
                 if (server_msg['data'] !== "连接成功") {
                     mui.alert(server_msg['data'], "连接失败", "刷新", function () {
@@ -100,6 +159,13 @@
                 let player_list_html = "";
                 for (let i = 0; i < player_list.length; i++) {
                     const player_data = player_list[i];
+
+                    let tp_str = player_data['pos'];
+                    tp_str = tp_str.replaceAll(",", "");
+                    tp_str = tp_str.replaceAll("(", "");
+                    tp_str = tp_str.replaceAll(")", "");
+                    tp_str = "tp " + tp_str + " " + player_data['SceneId'];
+
                     player_list_html += "<li class=\"mui-table-view-cell\">\n" +
                         "                        <div class=\"mui-slider-cell\">\n" +
                         "                            <div class=\"mui-slider-cell-right\">\n" +
@@ -111,6 +177,8 @@
                         "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
                         "                                <p class=\"mui-ellipsis\">坐标:" + player_data['pos'] + "</p>\n" +
                         "                                <p class=\"mui-ellipsis\">场景:" + player_data['SceneId'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">传送前请先刷新一下列表</p>\n" +
+                        "                        <button type=\"button\" data-loading-text=\"请稍后\" class=\"mui-btn \" onclick=\"sendCommand('" + tp_str + "')\">传送</button>" +
                         "                            </div>\n" +
                         "                        </div>\n" +
                         "                    </li>";
@@ -142,14 +210,25 @@
         }
     }
 
-    function do_cmd(e) {
-        const send_msg = {
-            "type": "CMD",
-            "data": e
-        };
-        const send_msg_str = JSON.stringify(send_msg);
-        ws.send(send_msg_str);
+    function sendCommand(cmd, method="invoke", background=false, persistent="auto") {
+        if (ws.readyState === WebSocket.OPEN) {
+            try {
+                console.log("执行命令:" + cmd);
+                const send_msg = {
+                    "type": "CMD",
+                    "data": cmd
+                };
+                const send_msg_str = JSON.stringify(send_msg);
+                ws.send(send_msg_str);
+            }catch (e){
+                console.log(e);
+                mui.toast("发送命令失败:" + e.message);
+            }
+        } else {
+            mui.toast("发送命令失败:服务器连接已断开");
+        }
     }
+
 </script>
 </body>
 
