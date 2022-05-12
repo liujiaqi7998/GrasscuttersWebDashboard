@@ -29,9 +29,7 @@ public class ServerUtils {
                 commandMap.invoke(null, null, data);
             }
             case "State" -> wsMessageContext.send(new WSData("BaseData", GrasscuttersWebDashboard.baseData));
-            case "Player" -> {
-                showPlayerList(wsMessageContext);
-            }
+            case "Player" -> showPlayerList(wsMessageContext);
         }
     }
 
@@ -70,9 +68,7 @@ public class ServerUtils {
                 }
 
             }
-            case "Player" -> {
-                showPlayerList(wsMessageContext);
-            }
+            case "Player" -> showPlayerList(wsMessageContext);
         }
     }
 }

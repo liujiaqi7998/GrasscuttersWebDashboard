@@ -1,8 +1,5 @@
 package top.cyqi.websocket.json;
 
-import emu.grasscutter.game.Account;
-import emu.grasscutter.game.player.PlayerBirthday;
-
 public class PlayerData {
 
     public int uid;
