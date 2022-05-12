@@ -24,11 +24,6 @@
         </repository>
     </repositories>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>xyz.grasscutters</groupId>-->
-<!--            <artifactId>grasscutter</artifactId>-->
-<!--            <version>1.1.0</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>xyz.grasscutters</groupId>
             <artifactId>grasscutter</artifactId>
@@ -36,6 +31,11 @@
             <version>1.1.1-dev-0f8b2cb</version>
             <systemPath>${project.basedir}/lib/grasscutter-220512-dev+0f8b2cb1.jar</systemPath>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>xyz.grasscutters</groupId>-->
+<!--            <artifactId>grasscutter</artifactId>-->
+<!--            <version>1.1.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
