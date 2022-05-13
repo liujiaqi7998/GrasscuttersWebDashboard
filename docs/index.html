@@ -107,7 +107,7 @@
     }
 
 
-    let ws;
+    var ws;
 
     function updatePlayerList() {
         ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
@@ -123,14 +123,22 @@
             });
             return;
         }
-        //判断server_address是否是一个有效的websocket地址
-        ws = new WebSocket(server_address);
-        ws.onopen = function () {
-            console.log("连接成功");
-            mui.toast("连接成功");
-            ws.send("{\"type\":\"State\",\"data\":\"0\"}");
-            ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
+        try {
+            //判断server_address是否是一个有效的websocket地址
+            ws = new WebSocket(server_address);
+            ws.onopen = function () {
+                console.log("连接成功");
+                mui.toast("连接成功");
+                ws.send("{\"type\":\"State\",\"data\":\"0\"}");
+                ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
+            }
+        }catch (e) {
+            mui.alert(e.toString(), "连接失败", "刷新", function () {
+                location.reload();
+            });
+            return;
         }
+
 
         ws.onmessage = function (event) {
             const server_msg = JSON.parse(event.data);
