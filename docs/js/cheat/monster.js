@@ -6,16 +6,16 @@ function genMonster() {
     <div class="mui-card-header">在自己周围生成怪物</div>
     <div class="mui-card-content">
         <ul class="mui-table-view">
-            <div style="display: flex; flex-direction: column;">
             <li class="mui-table-view-cell">
+                <div style="display: flex; flex-direction: column;">
                 <label for="entity-search">怪物名称:</label>
-                <div style="display: flex; align-items: center; overflow: hidden;">
-                        <input id="entity-search" style="flex: 4" type="text" placeholder="搜索怪物名称" />
-                        <button id="clear" class="mui-btn mui-btn-danger mui-btn-outlined" style="margin-left: 0.25em; transition: all ease-in-out 0.5s; flex: 0; opacity: 0;">清除</button>
+                    <div style="display: flex; align-items: center; overflow: hidden;">
+                            <input id="entity-search" style="flex: 4" type="text" placeholder="搜索怪物名称" />
+                            <button id="clear" class="mui-btn mui-btn-danger mui-btn-outlined" style="margin-left: 0.25em; transition: all ease-in-out 0.5s; flex: 0; opacity: 0;">清除</button>
                     </div>
-                        <div id="name-list" style="background-color: #ecf0f1; overflow-y: auto; overflow-x: hidden; max-height: 10em;height: 100%; transition: all ease-in-out 0.5s;">
+                    <div id="name-list" style="overflow-y: auto; overflow-x: hidden; max-height: 10em;height: 100%; transition: all ease-in-out 0.5s;">
                     </div>
-                 </div>
+                </div>
             </li>
             <li class="mui-table-view-cell"><label for="amount">数量:</label><input type="number" id="amount" name="amount" value=1 /></li>
             <li class="mui-table-view-cell"><label for="amount">等级(仅怪物适用):</label><input type="number" id="level" name="level" value=50 /></li>
@@ -95,9 +95,9 @@ function updateEntityList() {
         if (filter === "" || element.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1) {
             const o = document.createElement("label");
             o.style.marginLeft = "0.1em";
-            const color = {0: 'blue', 1: 'orange'}[element.type];
+            var color = {0: 'primary', 1: 'orange', 2: 'success', 3: 'primary', 4: 'royal', 5: 'warning'}[element.type];
             o.innerHTML = `<input name="stack" type="radio" name="entity-id" entity-id="${element.id}" entity-name="${element.name}" entity-level="${element.type}">
-                <span class="button quality-${color}">
+                <span class="mui-btn mui-btn-outlined mui-btn-${color}">
                 ${element.name ? element.name : "UNKNOWN"}
                 </span>`;
             list.appendChild(o);

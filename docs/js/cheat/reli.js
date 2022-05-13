@@ -29,7 +29,7 @@ function genReli() {
                     <div style="flex: 5; margin-left: 0.5em">
                         <select id="reli-select"  class="by-set mui-btn mui-btn-block">
                         </select>
-                        <div class="by-name" id="name-list" style="background-color: rgb(236, 240, 241); overflow-y: auto; overflow-x: hidden; height: 100%;">
+                        <div class="by-name" id="name-list" style="overflow-y: auto; overflow-x: hidden; height: 100%;">
                         </div>
                     </div>
                 </div>
@@ -108,14 +108,15 @@ function genReli() {
             document.getElementById("reli-id").setvalue(e.target.attributes['reli-id'].nodeValue, e.target.attributes['reli-quality'].nodeValue);
             setTimeout(() => {
                 document.getElementById("search-box").style.height = "3em";
-                var color = "quality-" + {
-                    0: "white",
-                    1: "green",
-                    2: "blue",
-                    3: "purple",
-                    4: "orange",
-                    5: "unknown"
+                var color = "mui-btn-" + {
+                    0: "",
+                    1: "success",
+                    2: "primary",
+                    3: "royal",
+                    4: "warning",
+                    5: ""
                 }[e.target.attributes['reli-quality'].nodeValue - 1];
+
                 var content = `<input name="stack" type="radio" name="reli-id" reli-id="${e.target.attributes['reli-id'].nodeValue}" reli-name="${e.target.attributes['reli-name'].nodeValue}" reli-quality="${e.target.attributes['reli-quality'].nodeValue}">
                 <span class="button ${color}">
                 ${e.target.attributes['reli-name'].nodeValue}
@@ -210,13 +211,13 @@ function updateQualityList() {
                 quality[1].forEach(item => {
                     if (keyword == "" || item.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1) {
                         var o = document.createElement("label");
-                        var color = "quality-" + {
-                            0: "white",
-                            1: "green",
-                            2: "blue",
-                            3: "purple",
-                            4: "orange",
-                            5: "unknown"
+                        var color = "mui-btn-" + {
+                            0: "",
+                            1: "success",
+                            2: "primary",
+                            3: "royal",
+                            4: "warning",
+                            5: ""
                         }[quality[0] - 1];
                         o.innerHTML = `
                             <input name="stack" type="radio" name="reli-id" reli-id="${item.id}" reli-name="${item.name}" reli-quality="${quality[0]}">

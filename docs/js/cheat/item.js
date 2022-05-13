@@ -22,7 +22,7 @@ function genItem() {
                             <button id="clear" class="mui-btn mui-btn-danger mui-btn-outlined" style="margin-left: 0.25em; transition: all ease-in-out 0.5s; flex: 0; opacity: 0;">清除</button>
                         </div>
                         <hr class="solid">
-                        <div id="name-list" style="background-color: #ecf0f1;overflow-y: auto; overflow-x: hidden; max-height: 10em;height: 100%; transition: all ease-in-out 0.5s;">
+                        <div id="name-list" style="overflow-y: auto; overflow-x: hidden; max-height: 10em;height: 100%; transition: all ease-in-out 0.5s;">
                         </div>
                         <hr class="solid">
                     </div>
@@ -112,9 +112,9 @@ function updateItemList() {
         if (filter == "" || element.name.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
             var o = document.createElement("label");
             o.style.marginLeft = "0.1em";
-            var color = {0: 'gray', 1: 'white', 2: 'green', 3: 'blue', 4: 'purple', 5: 'orange'}[element.level];
+            var color = {0: '', 1: '', 2: 'success', 3: 'primary', 4: 'royal', 5: 'warning'}[element.level];
             var content = `<input name="stack" type="radio" name="item-id" item-id="${element.id}" item-name="${element.name}" item-level="${element.level}">
-                <span class="button quality-${color}">
+                <span class="mui-btn mui-btn-outlined mui-btn-${color}">
                 ${element.name ? element.name : "UNKNOWN"}
                 </span>`;
             o.innerHTML = content;
