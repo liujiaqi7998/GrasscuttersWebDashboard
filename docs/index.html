@@ -78,7 +78,28 @@
 
 <script>
     mui.init();
-    mui.prompt("请输入服务器连接地址", "服务器连接地址", "提示", ["连接"], ContentServer)
+
+
+    function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split("&");
+        for (let i = 0; i < vars.length; i++) {
+            const pair = vars[i].split("=");
+            if (pair[0] === variable) {
+                return pair[1];
+            }
+        }
+        return false;
+    }
+
+    let ServerAddress = getQueryVariable("server");
+    if (ServerAddress === false) {
+        mui.prompt("请输入服务器连接地址", "服务器连接地址", "提示", ["连接"], ContentServer);
+    }else{
+        ContentServer(ServerAddress);
+    }
+
+
     let ws;
 
     function updatePlayerList() {
@@ -115,7 +136,7 @@
                     const base_data = server_msg['data'];
                     const str_temp = "服务器名称:" + base_data['ServerName'] + "<br/>\n" +
                         "                系统:" + base_data['SystemVersion'] + "<br/>\n" +
-                        "                监听IP:" + base_data['IP'] + "<br/>\n" +
+                        "                服务器地址:" + base_data['IP'] + "<br/>\n" +
                         "                JAVA版本:" + base_data['JavaVersion'] + "<br/>\n" +
                         "                插件版本:" + base_data['GrVersion'];
                     document.getElementById("id-BaseData").innerHTML = str_temp;

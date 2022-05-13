@@ -82,7 +82,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
         //获取JAVA版本
         baseData.JavaVersion = System.getProperty("java.version");
         //获取IP地址
-        baseData.IP = getServerConfig().server.dispatch.bindAddress;
+        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress);
         baseData.GrVersion = getVersion();
         Grasscutter.getLogger().info("[WEB控制台] 加载中...");
     }
@@ -104,6 +104,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
         Grasscutter.getLogger().info("[WEB控制台] 启动完成！！");
         Grasscutter.getLogger().info("[WEB控制台] 您设置的Token是：" + this.configuration.token);
         Grasscutter.getLogger().info("[WEB控制台] 连接地址是：" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
+        Grasscutter.getLogger().info("[WEB控制台] 快速连接，用浏览器打开：" + "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
         Grasscutter.getLogger().info("[WEB控制台] 连接地址不要告诉任何人，建议定期更换！！");
     }
 
