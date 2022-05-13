@@ -23,6 +23,8 @@ function genQuest() {
     <div class="mui-card-footer">
             <button disabled id="execute">添加任务</button>
             <button disabled id="execute-safe">完成任务</button>
+            <button disabled id="execute-del">删除该任务</button>
+            <button onclick="sendCommand(\`ALL\`,\`DelQuest\`);">玩坏了？清空任务</button>
      </div>`;
 
     updateQuestList();
@@ -55,9 +57,11 @@ function genQuest() {
         document.getElementById("entity-id").value = v;
         if (v) {
             document.getElementById("execute").disabled = false;
+            document.getElementById("execute-del").disabled = false;
             document.getElementById("execute-safe").disabled = false;
         } else {
             document.getElementById("execute").disabled = true;
+            document.getElementById("execute-del").disabled = true;
             document.getElementById("execute-safe").disabled = true;
         }
     }
@@ -87,6 +91,10 @@ function genQuest() {
     document.getElementById("execute-safe").onclick = () => {
         const entityId = document.getElementById("entity-id").value;
         sendCommand(`quest finish ${entityId}`);
+    }
+    document.getElementById("execute-del").onclick = () => {
+        const entityId = document.getElementById("entity-id").value;
+        sendCommand(`${entityId}`,"DelQuest");
     }
 }
 

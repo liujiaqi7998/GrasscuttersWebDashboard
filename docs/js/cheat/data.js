@@ -1252,7 +1252,7 @@ var Scene_data = [{"id": "1004", "name": "[西风骑士团]Knight_Inside_Test", 
 
 
 
-var Quest_data = [{"id": "30600", "name": " 在庙宇门口跟安柏见面", "type": 0},
+var Quest_data = [{"id": "30600", "name": " 在庙宇门口跟安柏见面", "type": 2},
 {"id": "30601", "name": " 与安柏对话", "type": 0},
 {"id": "30602", "name": " 进入庙宇", "type": 0},
 {"id": "30603", "name": " 探索庙宇深处", "type": 0},

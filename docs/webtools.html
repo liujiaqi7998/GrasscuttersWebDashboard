@@ -158,7 +158,7 @@
         const server_msg = JSON.parse(event.data);
         switch (server_msg['eventName']) {
             case 'error':
-                mui.alert(server_msg['data'], "错误", "刷新", function () {
+                mui.alert(server_msg['data'], "错误", "确定", function () {
                 });
                 break;
             case "auth":
@@ -228,12 +228,13 @@
         }
     }
 
-    function sendCommand(cmd, method = "invoke", background = false, persistent = "auto") {
+
+    function sendCommand(cmd, method = "CMD", background = false, persistent = "auto") {
         if (ws.readyState === WebSocket.OPEN) {
             try {
                 console.log("执行命令:" + cmd);
                 const send_msg = {
-                    "type": "CMD",
+                    "type": method,
                     "data": cmd
                 };
                 const send_msg_str = JSON.stringify(send_msg);

@@ -2,13 +2,15 @@ package top.cyqi.websocket;
 
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.CommandMap;
+import emu.grasscutter.database.DatabaseHelper;
 import emu.grasscutter.game.player.Player;
+import emu.grasscutter.game.quest.GameMainQuest;
+import emu.grasscutter.game.quest.enums.ParentQuestState;
+import emu.grasscutter.game.quest.enums.QuestState;
 import io.javalin.websocket.WsMessageContext;
 import top.cyqi.GrasscuttersWebDashboard;
 import top.cyqi.handlers.WebToolsMessageHandler;
-import top.cyqi.websocket.json.PlayerData;
-import top.cyqi.websocket.json.PlayerWebKey;
-import top.cyqi.websocket.json.WSData;
+import top.cyqi.websocket.json.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +71,20 @@ public class ServerUtils {
 
             }
             case "Player" -> showPlayerList(wsMessageContext);
+            case "DelQuest" -> {
+                List<GameMainQuest> gameMainQuests = DatabaseHelper.getAllQuests(player);
+                //遍历所有任务
+                for (GameMainQuest gameMainQuest : gameMainQuests) {
+                    //如果任务id相同,或者全部删除
+                    if (data.equals("ALL")|| data.contains(gameMainQuest.getParentQuestId() + "")) {
+                        //删除任务
+                        DatabaseHelper.deleteQuest(gameMainQuest);
+                        wsMessageContext.send(new WSData("success", "删除'" + gameMainQuest.getParentQuestId() + "'成功，请退出重进"));
+                        return;
+                    }
+                }
+                wsMessageContext.send(new WSData("error", "任务不存在"));
+            }
         }
     }
 }
