@@ -16,9 +16,10 @@
 [15:39:25] [INFO] [WEB控制台] 启动完成！！
 [15:39:25] [INFO] [WEB控制台] 您设置的Token是：******
 [15:39:25] [INFO] [WEB控制台] 连接地址是：wss://*******
+[15:39:25] [INFO] [WEB控制台] 快速连接，用浏览器打开：https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=wss://*****/Dashboard/GrasscuttersWebDashboard
 ```
 
-4.浏览器打开控制面板：[Grasscutters 网页控制台 (liujiaqi7998.github.io)](https://liujiaqi7998.github.io/GrasscuttersWebDashboard/)
+4.浏览器打开控制面板：复制‘快速连接，用浏览器打开’后面的链接用浏览器打开，或者[Grasscutters 网页控制台 (liujiaqi7998.github.io)](https://liujiaqi7998.github.io/GrasscuttersWebDashboard/)输入连接地址
 
 5.输入连接地址，点击确定
 
