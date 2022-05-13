@@ -67,7 +67,9 @@
 
 
     <div class="mui-card" style="margin-bottom: 35px;">
-        <div class="mui-card-header">在线玩家<button type="button" data-loading-text="请稍后" class="mui-btn" onclick="updatePlayerList()">刷新</button></div>
+        <div class="mui-card-header">在线玩家
+            <button type="button" data-loading-text="请稍后" class="mui-btn" onclick="updatePlayerList()">刷新</button>
+        </div>
         <ul class="mui-table-view" id="id-player-list">
 
         </ul>
@@ -93,9 +95,13 @@
     }
 
     let ServerAddress = getQueryVariable("server");
+    if (ServerAddress !== false) {
+        //URL解码
+        ServerAddress = decodeURIComponent(ServerAddress);
+    }
     if (ServerAddress === false) {
         mui.prompt("请输入服务器连接地址", "服务器连接地址", "提示", ["连接"], ContentServer);
-    }else{
+    } else {
         ContentServer(ServerAddress);
     }
 
