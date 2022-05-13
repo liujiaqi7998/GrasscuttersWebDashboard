@@ -3,7 +3,7 @@ var delayedSearch = null;
 function genScene() {
     var panel = document.getElementById("panel");
     panel.innerHTML = `
-    <div class="mui-card-header">进入到指定场景</div>
+    <div class="mui-card-header">进入到指定场景(测试)</div>
     <div class="mui-card-content">
         <ul class="mui-table-view">
             <div style="display: flex; flex-direction: column;">
@@ -21,8 +21,9 @@ function genScene() {
         </ul>
     </div>
     <div class="mui-card-footer">
-            <button disabled id="execute">进入该场景</button>
-            <button onclick="sendCommand(\`tp 0 10 0\`)">进入后点我传送的到坐标(0 10 0)</button>
+            <button disabled id="execute-safe">安全进入场景(进入后传送到 0 10 0)</button>
+            <button disabled id="execute">直接进入该场景</button>
+            <button onclick="sendCommand(\`tp 2270.885 220.09885 -866.60046 3\`);">玩坏了？一键返回蒙德城</button>
      </div>`;
 
     updateSceneList();
@@ -55,8 +56,10 @@ function genScene() {
         document.getElementById("entity-id").value = v;
         if (v) {
             document.getElementById("execute").disabled = false;
+            document.getElementById("execute-safe").disabled = false;
         } else {
             document.getElementById("execute").disabled = true;
+            document.getElementById("execute-safe").disabled = true;
         }
     }
     document.getElementById("name-list").onclick = (e) => {
@@ -81,6 +84,10 @@ function genScene() {
     document.getElementById("execute").onclick = () => {
         const entityId = document.getElementById("entity-id").value;
         sendCommand(`changescene ${entityId}`);
+    }
+    document.getElementById("execute-safe").onclick = () => {
+        const entityId = document.getElementById("entity-id").value;
+        sendCommand(`tp 0 10 0 ${entityId}`);
     }
 }
 
