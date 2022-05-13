@@ -14,4 +14,5 @@ document.addEventListener("DOMContentLoaded", ()=> {
    document.getElementById("tab-4").onclick = genReli;
    document.getElementById("tab-5").onclick = genItem;
    document.getElementById("tab-6").onclick = genMonster;
+    document.getElementById("tab-7").onclick = genScene;
 });

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes"/>
     <link rel="stylesheet" href="css/mui.min.css">
     <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="js/cheat.js"></script>
@@ -17,7 +19,12 @@
     <script type="text/javascript" src="js/cheat/reli.js"></script>
     <script type="text/javascript" src="js/cheat/item.js"></script>
     <script type="text/javascript" src="js/cheat/monster.js"></script>
-
+    <script type="text/javascript" src="js/cheat/scene.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
     <header class="mui-bar mui-bar-nav">
         <h1 class="mui-title">Grasscutters 网页控制台</h1>
     </header>
@@ -42,7 +49,7 @@
                 <form class="mui-input-group">
                     <div class="mui-input-row mui-radio">
                         <label for='tab-1'>常用指令</label>
-                        <input id='tab-1' type='radio' name='tabgroupB' checked >
+                        <input id='tab-1' type='radio' name='tabgroupB' checked>
                     </div>
 
                     <div class="mui-input-row mui-radio">
@@ -69,7 +76,10 @@
                         <label for='tab-6'>怪物</label>
                         <input id='tab-6' type='radio' name='tabgroupB'>
                     </div>
-
+                    <div class="mui-input-row mui-radio">
+                        <label for='tab-7'>场景</label>
+                        <input id='tab-7' type='radio' name='tabgroupB'>
+                    </div>
                 </form>
             </div>
         </div>
@@ -213,7 +223,7 @@
         }
     }
 
-    function sendCommand(cmd, method="invoke", background=false, persistent="auto") {
+    function sendCommand(cmd, method = "invoke", background = false, persistent = "auto") {
         if (ws.readyState === WebSocket.OPEN) {
             try {
                 console.log("执行命令:" + cmd);
@@ -223,7 +233,7 @@
                 };
                 const send_msg_str = JSON.stringify(send_msg);
                 ws.send(send_msg_str);
-            }catch (e){
+            } catch (e) {
                 console.log(e);
                 mui.toast("发送命令失败:" + e.message);
             }

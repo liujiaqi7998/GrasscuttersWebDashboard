@@ -1,7 +1,7 @@
 {
   "name": "GrasscuttersWebDashboard",
   "description": "小奇 Grasscutter WEB管理面板",
-  "version": "2.1.0-dev",
+  "version": "2.1.1-dev",
   "authors": [ "666Qi" , "4Benj_"],
   "mainClass": "top.cyqi.GrasscuttersWebDashboard"
 }

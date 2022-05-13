@@ -17,35 +17,35 @@ function genReli() {
                 </div>
                 <div style="display: flex;" id="search-box" class="search-box">
                     <div style="flex: 5;">
-                        <select id="reli-set" class="by-set">
+                        <select id="reli-set" class="by-set mui-btn mui-btn-block">
                             <option value="0">套装：全部</option>
                         </select>
                         <input id="reli-search" style="margin-top: 0.25em" type="text" class="hidden by-name" placeholder="搜索圣遗物名称" />
                     </div>
                     <div style="flex: 5; margin-left: 0.5em" class="by-set">
-                        <select id="reli-quality" class="by-set">
+                        <select id="reli-quality" class="by-set mui-btn mui-btn-block">
                         </select>
                     </div>
                     <div style="flex: 5; margin-left: 0.5em">
-                        <select id="reli-select"  class="by-set">
+                        <select id="reli-select"  class="by-set mui-btn mui-btn-block">
                         </select>
-                        <div class="by-name" id="name-list" style="overflow-y: auto; overflow-x: hidden; height: 100%;">
+                        <div class="by-name" id="name-list" style="background-color: rgb(236, 240, 241); overflow-y: auto; overflow-x: hidden; height: 100%;">
                         </div>
                     </div>
                 </div>
             </li>      
             <input id="reli-id" type="text" style="display: none;" />
             <li class="mui-table-view-cell">
-                <label for="level">强化等级:</label>
+                <label for="level">强化等级:(最大20级)</label>
                 <input type="number" id="level" name="level" value=20 />
             </li>  
             <li class="mui-table-view-cell">
                 <div style="display: flex; flex-direction: column; margin-top: 1em;">
                     <div style="flex: 2; padding: 0.5em;" class="card">
-                        <label for="main-prop">主属性：</label>
+                        <label for="main-prop">主词条(主属性)：</label>
                         <div style="display: flex; align-items: end">
                             <div style="flex: 4;">
-                                <select id="main-prop"> </select>
+                                <select id="main-prop" class="mui-btn mui-btn-block"> </select>
                             </div>
                             <div style="flex: 2; overflow: hidden; transition: all ease-in-out 0.5s; max-width: 3em; margin-bottom: 0.3em; margin-left: 0.5em" id="percent-modifier">
                                 <input type="checkbox" id="main-percent" name="main-percent" />
@@ -54,7 +54,7 @@ function genReli() {
                         </div>
                     </div>
                     <div style="flex: 4;padding: 0.5em;" class="card">
-                        <label for="append-prop">副属性：</label>
+                        <label for="append-prop">副词条(副属性)：</label>
                         <table style="width: 100%">
                             <thead>
                                 <tr><th style="width:50%">属性</th><th style="width:30%">数值</th><th style="width:20%">次数</th><th style="width: 5%"></th></tr>

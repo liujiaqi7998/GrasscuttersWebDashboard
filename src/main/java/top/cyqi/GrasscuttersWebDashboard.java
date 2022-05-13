@@ -82,7 +82,8 @@ public final class GrasscuttersWebDashboard extends Plugin {
         //获取JAVA版本
         baseData.JavaVersion = System.getProperty("java.version");
         //获取IP地址
-        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress);
+        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress)+
+                ":" + (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort != 0 ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort : GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindPort);
         baseData.GrVersion = getVersion();
         Grasscutter.getLogger().info("[WEB控制台] 加载中...");
     }
