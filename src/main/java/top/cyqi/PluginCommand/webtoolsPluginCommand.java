@@ -32,13 +32,13 @@ public class webtoolsPluginCommand implements CommandHandler {
             return;
         }
         //随机8位数字
-        String random = Long.toString((long) (Math.random() * 100000000));
+        String random = Utils.generate8UID();
         while (ServerUtils.tempPlayersData.containsKey(random)) {
             //判断密钥是否超过key_timeout分钟
             if (System.currentTimeMillis() - ServerUtils.tempPlayersData.get(random).getTime > GrasscuttersWebDashboard.key_timeout) {
                 ServerUtils.tempPlayersData.remove(random);
             } else {
-                random = Long.toString((long) (Math.random() * 100000000));
+                random = Utils.generate8UID();
             }
         }
 

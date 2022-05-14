@@ -36,13 +36,29 @@
 <div class="mui-content">
 
     <div class="mui-card" style="margin-bottom: 35px;">
-        <div class="mui-card-header">在线玩家
-            <button type="button" data-loading-text="请稍后" class="mui-btn" onclick="updatePlayerList()">刷新</button>
+        <div class="mui-card-header">在线玩家 <br>传送前请先刷新一下列表
+            <button type="button" data-loading-text="请稍后" class="mui-btn mui-btn-primary mui-btn-outlined"
+                    onclick="updatePlayerList()">刷新
+            </button>
         </div>
         <ul class="mui-table-view" id="id-player-list">
         </ul>
     </div>
 
+    <div class="mui-card" style="margin-bottom: 35px;">
+        <div class="mui-card-header">传送点列表
+            <button type="button" data-loading-text="请稍后" class="mui-btn mui-btn-outlined" onclick="addTransfer()">添加
+            </button>
+            <button type="button" data-loading-text="请稍后" class="mui-btn mui-btn-primary mui-btn-outlined"
+                    onclick="updateTransferList()">刷新
+            </button>
+            <button type="button" data-loading-text="请稍后" class="mui-btn mui-btn-danger mui-btn-outlined"
+                    onclick="delAllTransfer()">全部删除
+            </button>
+        </div>
+        <ul class="mui-table-view" id="id-Transfer-list">
+        </ul>
+    </div>
 
     <div class="container">
         <div class="toolset">
@@ -154,20 +170,49 @@
         sendCommand("0", "Player");
     }
 
+    function updateTransferList() {
+        sendCommand("0", "TPMList");
+    }
+
+    function delAllTransfer() {
+        //询问是否删除
+        mui.confirm("确定删除所有传送点？", "删除传送点", ["确定", "取消"], function (e) {
+            if (e.index === 0) {
+                sendCommand("tpm delall yes");
+                updateTransferList();
+            }
+        });
+    }
+
+    function addTransfer() {
+        mui.prompt("请输入传送点名称", "添加传送点", "提示", ["取消", "确定"], function (e) {
+            if (e.index === 1) {
+                const name = e.value;
+                if (name.length === 0) {
+                    mui.alert("传送点名称不能为空", "添加失败", "确定", function () {
+                    });
+                } else {
+                    sendCommand("tpm add " + name);
+                    updateTransferList();
+                }
+            }
+        });
+    }
 
     //心跳检测防止与服务器断开连接
     var heartCheck = {
         timeout: 10000,        //10秒发一次心跳
         timeoutObj: null,
         serverTimeoutObj: null,
-        reset: function(){
+        reset: function () {
             clearTimeout(this.timeoutObj);
             clearTimeout(this.serverTimeoutObj);
             return this;
         },
-        start: function(){
-            this.timeoutObj = setTimeout(function(){
+        start: function () {
+            this.timeoutObj = setTimeout(function () {
                 updatePlayerList();
+                updateTransferList();
             }, this.timeout)
         }
     }
@@ -190,19 +235,39 @@
             case "success":
                 mui.toast(server_msg['data']);
                 break;
+            case 'TPMList':
+                var tpm_list = server_msg['data'];
+                var tpm_list_html = "";
+                for (let i = 0; i < tpm_list.length; i++) {
+                    var tpm_list_data = tpm_list[i];
+
+                    tpm_list_html += "<li class=\"mui-table-view-cell\">\n" +
+                        "                        <div class=\"mui-slider-cell\">\n" +
+                        "                            <div class=\"mui-slider-cell-right\">\n" +
+                        "                                <p class=\"mui-ellipsis\">传送点名称:" + tpm_list_data['Name'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">坐标:" + tpm_list_data['pos'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">场景:" + tpm_list_data['SceneId'] + "</p>\n" +
+                        "                                <p class=\"mui-ellipsis\">UID:" + tpm_list_data['uid'] + "</p>\n" +
+                        "                        <button type=\"button\" data-loading-text=\"请稍后\" class=\"mui-btn \" onclick=\"sendCommand('tpm go " + tpm_list_data['Name'] + "')\">传送</button>" +
+                        "                        <button type=\"button\" data-loading-text=\"请稍后\" class=\"mui-btn \" onclick=\"sendCommand('tpm del " + tpm_list_data['Name'] + "');updateTransferList();\">删除</button>" +
+                        "                            </div>\n" +
+                        "                        </div>\n" +
+                        "                    </li>";
+                }
+                document.getElementById("id-Transfer-list").innerHTML = tpm_list_html;
+                break;
             case 'PlayerList':
-                const player_list = server_msg['data'];
+                var player_list = server_msg['data'];
                 //遍历玩家列表
-                let player_list_html = "";
+                var player_list_html = "";
                 for (let i = 0; i < player_list.length; i++) {
-                    const player_data = player_list[i];
-
-                    let tp_str = player_data['pos'];
-                    tp_str = tp_str.replaceAll(",", "");
-                    tp_str = tp_str.replaceAll("(", "");
-                    tp_str = tp_str.replaceAll(")", "");
+                    var player_data = player_list[i];
+                    var tp_str = player_data['pos'];
+                    tp_str = tp_str.replace("(", "");
+                    tp_str = tp_str.replace(")", "");
+                    tp_str = tp_str.replace(",", "");
+                    tp_str = tp_str.replace(",", "");
                     tp_str = "tp " + tp_str + " " + player_data['SceneId'];
-
                     player_list_html += "<li class=\"mui-table-view-cell\">\n" +
                         "                        <div class=\"mui-slider-cell\">\n" +
                         "                            <div class=\"mui-slider-cell-right\">\n" +
@@ -214,7 +279,6 @@
                         "                                <p class=\"mui-ellipsis\">等级:" + player_data['Level'] + "级</p>\n" +
                         "                                <p class=\"mui-ellipsis\">坐标:" + player_data['pos'] + "</p>\n" +
                         "                                <p class=\"mui-ellipsis\">场景:" + player_data['SceneId'] + "</p>\n" +
-                        "                                <p class=\"mui-ellipsis\">传送前请先刷新一下列表</p>\n" +
                         "                        <button type=\"button\" data-loading-text=\"请稍后\" class=\"mui-btn \" onclick=\"sendCommand('" + tp_str + "')\">传送</button>" +
                         "                            </div>\n" +
                         "                        </div>\n" +
@@ -235,6 +299,7 @@
                 console.log("连接成功");
                 heartCheck.reset().start();
                 updatePlayerList();
+                updateTransferList();
             }
             ws.onclose = () => {
                 mui.alert("连接已断开", "提示", "确定", function () {
