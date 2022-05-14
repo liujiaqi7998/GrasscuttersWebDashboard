@@ -1,6 +1,6 @@
 # Grasscutters的工具箱
 
-一款Grasscutters的~~WEB控制面板插件~~（工具箱）
+一款Grasscutters的~~WEB控制面板插件~~（网页工具箱）
 
 **4.x及其以上版本是针对割草机1.1.2-dev分支最新版本开发的，1.1.1-dev版本的割草机请使用3.0.0版本**
 
