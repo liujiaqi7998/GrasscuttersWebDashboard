@@ -1,11 +1,12 @@
-package top.cyqi.utils;
+package top.cyqi.PluginCommand;
 
 import emu.grasscutter.command.Command;
 import emu.grasscutter.command.CommandHandler;
 import emu.grasscutter.game.mail.Mail;
 import emu.grasscutter.game.player.Player;
 import top.cyqi.GrasscuttersWebDashboard;
-import top.cyqi.utils.web.WebUtils;
+import top.cyqi.utils.Utils;
+import top.cyqi.utils.WebUtils;
 import top.cyqi.websocket.ServerUtils;
 import top.cyqi.websocket.json.PlayerWebKey;
 
@@ -17,7 +18,7 @@ import java.util.Map;
         description = "发送 webtools 验证码邮件",
         aliases = {"webt", "wt"},
         permission = "GrasscuttersWebDashboard.webtools")
-public class PluginCommand implements CommandHandler {
+public class webtoolsPluginCommand implements CommandHandler {
 
     public void execute(Player sender, Player targetPlayer, List<String> args) {
         if (targetPlayer == null) {
@@ -50,7 +51,7 @@ public class PluginCommand implements CommandHandler {
         mail.mailContent.title = "登录网页管理工具验证码";
         mail.mailContent.sender = "网页管理工具";
 
-        String ServerUrl =GCGMUtils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
+        String ServerUrl = Utils.GetDispatchAddress() + WebUtils.WebToolsPAGE_ROOT;
         String Url = WebUtils.WebtoolsURL + "?key=" + random + "&server=" + ServerUrl;
         mail.mailContent.content = "您的验证码是: " + random + "\n\n" + "请点击以下链接打开: \n"
                 + "<type=\"webview\" text=\"游戏内打开网页工具箱\" href=\"" + Url + "\"/>"

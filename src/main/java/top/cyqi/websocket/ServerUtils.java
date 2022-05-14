@@ -5,11 +5,11 @@ import emu.grasscutter.command.CommandMap;
 import emu.grasscutter.database.DatabaseHelper;
 import emu.grasscutter.game.player.Player;
 import emu.grasscutter.game.quest.GameMainQuest;
-import emu.grasscutter.game.quest.enums.ParentQuestState;
-import emu.grasscutter.game.quest.enums.QuestState;
 import io.javalin.websocket.WsMessageContext;
 import top.cyqi.GrasscuttersWebDashboard;
 import top.cyqi.handlers.WebToolsMessageHandler;
+import top.cyqi.Database.QiDatabaseHelper;
+import top.cyqi.Database.TransferMemoData;
 import top.cyqi.websocket.json.*;
 
 import java.util.ArrayList;
@@ -70,21 +70,38 @@ public class ServerUtils {
                 }
 
             }
+            case "TPMList" -> showTPMList(player, wsMessageContext);
             case "Player" -> showPlayerList(wsMessageContext);
             case "DelQuest" -> {
                 List<GameMainQuest> gameMainQuests = DatabaseHelper.getAllQuests(player);
                 //遍历所有任务
                 for (GameMainQuest gameMainQuest : gameMainQuests) {
                     //如果任务id相同,或者全部删除
-                    if (data.equals("ALL")|| data.contains(gameMainQuest.getParentQuestId() + "")) {
+                    if (data.equals("ALL") || data.contains(gameMainQuest.getParentQuestId() + "")) {
                         //删除任务
                         DatabaseHelper.deleteQuest(gameMainQuest);
                         wsMessageContext.send(new WSData("success", "删除'" + gameMainQuest.getParentQuestId() + "'成功，请退出重进"));
-                        return;
+                        if (!data.equals("ALL")) {
+                            return;
+                        }
                     }
                 }
                 wsMessageContext.send(new WSData("error", "任务不存在"));
             }
         }
+    }
+
+    private static void showTPMList(Player player, WsMessageContext wsMessageContext) {
+        List<TransferMemoData> tpmDatas = QiDatabaseHelper.getAllTransferMemoByUid(player);
+        List<TransferData> SendtpmDatas = new ArrayList<>();
+        for (TransferMemoData tpm : tpmDatas) {
+            TransferData transferData = new TransferData();
+            transferData.uid = String.valueOf(tpm.getOwnerUid());
+            transferData.Name = tpm.getTransferName();
+            transferData.SceneId = String.valueOf(tpm.getSavePlayerState().getSceneId());
+            transferData.pos = tpm.getSavePlayerState().getPos().toString();
+            SendtpmDatas.add(transferData);
+        }
+        wsMessageContext.send(new WSData("TPMList", SendtpmDatas));
     }
 }

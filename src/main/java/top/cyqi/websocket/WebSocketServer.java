@@ -5,7 +5,7 @@ import emu.grasscutter.game.player.Player;
 import express.Express;
 import io.javalin.websocket.WsContext;
 import top.cyqi.GrasscuttersWebDashboard;
-import top.cyqi.utils.web.WebUtils;
+import top.cyqi.utils.WebUtils;
 import top.cyqi.websocket.json.PlayerWebKey;
 import top.cyqi.websocket.json.WSData;
 import top.cyqi.websocket.json.WsMsg;

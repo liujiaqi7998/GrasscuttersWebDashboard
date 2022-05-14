@@ -1,4 +1,4 @@
-package top.cyqi.utils.web;
+package top.cyqi.utils;
 
 
 import java.util.UUID;

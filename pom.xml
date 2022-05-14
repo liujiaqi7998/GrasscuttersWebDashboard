@@ -6,7 +6,7 @@
 
     <groupId>top.cyqi</groupId> <!-- Replace with your groupId -->
     <artifactId>GrasscuttersWebDashboard</artifactId> <!-- Replace with your plugin name. -->
-    <version>2.2.2</version> <!-- The template's version corresponds to the latest API version. -->
+    <version>3.0.0</version> <!-- The template's version corresponds to the latest API version. -->
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -28,8 +28,8 @@
             <groupId>xyz.grasscutters</groupId>
             <artifactId>grasscutter</artifactId>
             <scope>system</scope>
-            <version>1.1.1-dev-23c5ad</version>
-            <systemPath>${project.basedir}/lib/grasscutter-1.1.1-dev-23c5ad.jar</systemPath>
+            <version>1.1.1-dev-f2e984</version>
+            <systemPath>${project.basedir}/lib/grasscutter-1.1.1-dev-f2e984.jar</systemPath>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>xyz.grasscutters</groupId>-->

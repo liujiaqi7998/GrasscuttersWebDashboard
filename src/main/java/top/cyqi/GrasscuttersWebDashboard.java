@@ -12,12 +12,13 @@ import emu.grasscutter.server.event.HandlerPriority;
 import emu.grasscutter.server.event.game.ServerTickEvent;
 import emu.grasscutter.server.game.GameServer;
 import emu.grasscutter.utils.ConfigContainer;
+import top.cyqi.PluginCommand.tpmPluginCommand;
 import top.cyqi.handlers.ServerTickHandler;
-import top.cyqi.utils.GCGMUtils;
-import top.cyqi.utils.PluginCommand;
+import top.cyqi.utils.Utils;
+import top.cyqi.PluginCommand.webtoolsPluginCommand;
 import top.cyqi.utils.PluginConfig;
-import top.cyqi.utils.WebConsoleListAppender;
-import top.cyqi.utils.web.WebUtils;
+import top.cyqi.handlers.WebConsoleListAppender;
+import top.cyqi.utils.WebUtils;
 import top.cyqi.websocket.WebSocketServer;
 import top.cyqi.websocket.json.BaseData;
 
@@ -82,7 +83,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
         //获取JAVA版本
         baseData.JavaVersion = System.getProperty("java.version");
         //获取IP地址
-        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress)+
+        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress) +
                 ":" + (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort != 0 ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort : GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindPort);
         baseData.GrVersion = getVersion();
         Grasscutter.getLogger().info("[WEB控制台] 加载中...");
@@ -101,11 +102,12 @@ public final class GrasscuttersWebDashboard extends Plugin {
         listAppender.setName("WebConsole");
         listAppender.start();
         Grasscutter.getLogger().addAppender(listAppender);
-        CommandMap.getInstance().registerCommand("webtools", new PluginCommand());
+        CommandMap.getInstance().registerCommand("webtools", new webtoolsPluginCommand());
+        CommandMap.getInstance().registerCommand("tpm", new tpmPluginCommand());
         Grasscutter.getLogger().info("[WEB控制台] 启动完成！！");
         Grasscutter.getLogger().info("[WEB控制台] 您设置的Token是：" + this.configuration.token);
-        Grasscutter.getLogger().info("[WEB控制台] 连接地址是：" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
-        Grasscutter.getLogger().info("[WEB控制台] 快速连接，用浏览器打开：" + "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
+        Grasscutter.getLogger().info("[WEB控制台] 连接地址是：" + Utils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
+        Grasscutter.getLogger().info("[WEB控制台] 快速连接，用浏览器打开：" + "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + Utils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
         Grasscutter.getLogger().info("[WEB控制台] 连接地址不要告诉任何人，建议定期更换token！！");
     }
 
@@ -113,6 +115,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
     public void onDisable() {
         webSocketServer.stop();
         CommandMap.getInstance().unregisterCommand("webtools");
+        CommandMap.getInstance().unregisterCommand("tpm");
         Grasscutter.getLogger().info("[WEB控制台] 已停止");
     }
 

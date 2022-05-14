@@ -3,7 +3,7 @@ package top.cyqi.handlers;
 import emu.grasscutter.server.event.game.ServerTickEvent;
 import emu.grasscutter.utils.EventConsumer;
 import top.cyqi.GrasscuttersWebDashboard;
-import top.cyqi.utils.GCGMUtils;
+import top.cyqi.utils.Utils;
 import top.cyqi.websocket.json.TickData;
 import top.cyqi.websocket.json.WSData;
 
@@ -22,8 +22,8 @@ public class ServerTickHandler implements EventConsumer<ServerTickEvent> {
             TickData data = new TickData();
             data.tickTimeElapsed = now.toEpochMilli() - lastTick.toEpochMilli();
             data.serverUptime = lastTick.toEpochMilli() - firstTick.toEpochMilli();
-            data.getFreeMemory = GCGMUtils.GetFreeJVMMemory();
-            data.getAllocatedMemory = GCGMUtils.GetAllocatedJVMMemory();
+            data.getFreeMemory = Utils.GetFreeJVMMemory();
+            data.getAllocatedMemory = Utils.GetAllocatedJVMMemory();
             data.playerCount = GrasscuttersWebDashboard.getGameServer().getPlayers().size();
             GrasscuttersWebDashboard.getInstance().getWebSocketServer().broadcast(new WSData("tick", data));
             lastTick = now;

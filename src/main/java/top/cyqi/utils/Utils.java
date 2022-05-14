@@ -2,7 +2,7 @@ package top.cyqi.utils;
 
 import top.cyqi.GrasscuttersWebDashboard;
 
-public class GCGMUtils {
+public class Utils {
 
     private static final Runtime RUNTIME = Runtime.getRuntime();
 
@@ -14,10 +14,10 @@ public class GCGMUtils {
     }
 
     public static long GetFreeJVMMemory() {
-        return GCGMUtils.RUNTIME.freeMemory();
+        return Utils.RUNTIME.freeMemory();
     }
 
     public static long GetAllocatedJVMMemory() {
-        return GCGMUtils.RUNTIME.totalMemory();
+        return Utils.RUNTIME.totalMemory();
     }
 }

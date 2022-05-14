@@ -1,4 +1,4 @@
-package top.cyqi.utils;
+package top.cyqi.handlers;
 
 import ch.qos.logback.core.read.ListAppender;
 import top.cyqi.websocket.WebSocketServer;
