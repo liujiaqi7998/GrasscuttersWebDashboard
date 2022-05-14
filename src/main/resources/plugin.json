@@ -1,7 +1,7 @@
 {
   "name": "GrasscuttersWebDashboard",
   "description": "小奇 Grasscutter 工具箱",
-  "version": "3.0.0-dev",
+  "version": "4.0.0",
   "authors": [ "666Qi" , "4Benj_"],
   "mainClass": "top.cyqi.GrasscuttersWebDashboard"
 }

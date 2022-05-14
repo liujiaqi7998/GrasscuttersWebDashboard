@@ -2,7 +2,7 @@ package top.cyqi.websocket;
 
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.game.player.Player;
-import express.Express;
+import io.javalin.Javalin;
 import io.javalin.websocket.WsContext;
 import top.cyqi.GrasscuttersWebDashboard;
 import top.cyqi.utils.WebUtils;
@@ -19,7 +19,7 @@ public class WebSocketServer {
     public static Map<WsContext, String> ClitenContextMap = new ConcurrentHashMap<>();
 
     public static Map<WsContext, String> WebToolsClitenContextMap = new ConcurrentHashMap<>();
-    Express app = GrasscuttersWebDashboard.getDispatchServer().getServer();
+    Javalin app = GrasscuttersWebDashboard.getDispatchServer().getHandle();
 
     public void start() {
 

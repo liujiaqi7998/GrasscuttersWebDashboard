@@ -10,9 +10,9 @@ public class Utils {
 
     public static String GetDispatchAddress() {
 
-        return "ws" + (GrasscuttersWebDashboard.getServerConfig().server.dispatch.encryption.useEncryption ? "s" : "") + "://" +
-                (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress) +
-                ":" + (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort != 0 ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort : GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindPort);
+        return "ws" + (GrasscuttersWebDashboard.getServerConfig().server.http.encryption.useEncryption ? "s" : "") + "://" +
+                (GrasscuttersWebDashboard.getServerConfig().server.http.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.http.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.http.accessAddress) +
+                ":" + (GrasscuttersWebDashboard.getServerConfig().server.http.accessPort != 0 ? GrasscuttersWebDashboard.getServerConfig().server.http.accessPort : GrasscuttersWebDashboard.getServerConfig().server.http.bindPort);
     }
 
     public static long GetFreeJVMMemory() {

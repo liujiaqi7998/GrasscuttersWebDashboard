@@ -6,11 +6,11 @@ import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.CommandMap;
 import emu.grasscutter.plugin.Plugin;
 import emu.grasscutter.plugin.api.ServerHook;
-import emu.grasscutter.server.dispatch.DispatchServer;
 import emu.grasscutter.server.event.EventHandler;
 import emu.grasscutter.server.event.HandlerPriority;
 import emu.grasscutter.server.event.game.ServerTickEvent;
 import emu.grasscutter.server.game.GameServer;
+import emu.grasscutter.server.http.HttpServer;
 import emu.grasscutter.utils.ConfigContainer;
 import top.cyqi.PluginCommand.tpmPluginCommand;
 import top.cyqi.handlers.ServerTickHandler;
@@ -83,8 +83,8 @@ public final class GrasscuttersWebDashboard extends Plugin {
         //获取JAVA版本
         baseData.JavaVersion = System.getProperty("java.version");
         //获取IP地址
-        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessAddress) +
-                ":" + (GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort != 0 ? GrasscuttersWebDashboard.getServerConfig().server.dispatch.accessPort : GrasscuttersWebDashboard.getServerConfig().server.dispatch.bindPort);
+        baseData.IP = (GrasscuttersWebDashboard.getServerConfig().server.http.accessAddress.isEmpty() ? GrasscuttersWebDashboard.getServerConfig().server.http.bindAddress : GrasscuttersWebDashboard.getServerConfig().server.http.accessAddress) +
+                ":" + (GrasscuttersWebDashboard.getServerConfig().server.http.accessPort != 0 ? GrasscuttersWebDashboard.getServerConfig().server.http.accessPort : GrasscuttersWebDashboard.getServerConfig().server.http.bindPort);
         baseData.GrVersion = getVersion();
         Grasscutter.getLogger().info("[WEB控制台] 加载中...");
     }
@@ -135,8 +135,8 @@ public final class GrasscuttersWebDashboard extends Plugin {
         return Grasscutter.getConfig();
     }
 
-    public static DispatchServer getDispatchServer() {
-        return ServerHook.getInstance().getDispatchServer();
+    public static HttpServer getDispatchServer() {
+        return ServerHook.getInstance().getHttpServer();
     }
 
 }

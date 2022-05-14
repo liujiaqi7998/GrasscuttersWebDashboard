@@ -3,15 +3,8 @@ package top.cyqi.Database;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Indexed;
-import dev.morphia.annotations.Transient;
 import emu.grasscutter.game.player.Player;
-import emu.grasscutter.game.quest.GameQuest;
-import emu.grasscutter.game.quest.enums.ParentQuestState;
-import emu.grasscutter.utils.Position;
 import org.bson.types.ObjectId;
-
-import java.util.Date;
-import java.util.Map;
 
 @Entity(
         value = "TransferMemoData",
