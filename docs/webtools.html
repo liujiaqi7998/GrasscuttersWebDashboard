@@ -157,7 +157,7 @@
 
     //心跳检测防止与服务器断开连接
     var heartCheck = {
-        timeout: 300,        //30秒发一次心跳
+        timeout: 10000,        //10秒发一次心跳
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){
