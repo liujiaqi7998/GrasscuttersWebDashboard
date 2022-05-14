@@ -29,6 +29,8 @@
 
 4.浏览器打开控制面板：复制‘快速连接，用浏览器打开’后面的链接用浏览器打开，或者[Grasscutters 网页控制台 (liujiaqi7998.github.io)](https://liujiaqi7998.github.io/GrasscuttersWebDashboard/)输入连接地址
 
+**另一款好看的管理页面（来自@wmn1525）：[GrasscutterTools (wmn1525.github.io)](https://wmn1525.github.io/grasscutterTools/dist/index.html#/start/login)**
+
 5.输入连接地址，点击确定
 
 ## tpm万能传送标记功能（3.x版本新增）
