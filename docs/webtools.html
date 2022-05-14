@@ -151,10 +151,29 @@
     var ws;
 
     function updatePlayerList() {
-        ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
+        sendCommand("0", "Player");
+    }
+
+
+    //心跳检测防止与服务器断开连接
+    var heartCheck = {
+        timeout: 300,        //30秒发一次心跳
+        timeoutObj: null,
+        serverTimeoutObj: null,
+        reset: function(){
+            clearTimeout(this.timeoutObj);
+            clearTimeout(this.serverTimeoutObj);
+            return this;
+        },
+        start: function(){
+            this.timeoutObj = setTimeout(function(){
+                updatePlayerList();
+            }, this.timeout)
+        }
     }
 
     function deal_onmessage(event) {
+        heartCheck.reset().start();
         const server_msg = JSON.parse(event.data);
         switch (server_msg['eventName']) {
             case 'error':
@@ -214,6 +233,7 @@
             ws = new WebSocket(ServerAddress + "?key=" + ServerKey)
             ws.onopen = function () {
                 console.log("连接成功");
+                heartCheck.reset().start();
                 updatePlayerList();
             }
             ws.onclose = () => {

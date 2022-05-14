@@ -106,7 +106,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
         Grasscutter.getLogger().info("[WEB控制台] 您设置的Token是：" + this.configuration.token);
         Grasscutter.getLogger().info("[WEB控制台] 连接地址是：" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
         Grasscutter.getLogger().info("[WEB控制台] 快速连接，用浏览器打开：" + "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + GCGMUtils.GetDispatchAddress() + WebUtils.PAGE_ROOT);
-        Grasscutter.getLogger().info("[WEB控制台] 连接地址不要告诉任何人，建议定期更换！！");
+        Grasscutter.getLogger().info("[WEB控制台] 连接地址不要告诉任何人，建议定期更换token！！");
     }
 
     @Override

@@ -134,7 +134,7 @@ public class WebSocketServer {
 
 
     public void stop() {
-        //清除用户列表，关闭连接
+        //清除网页控制台的用户列表，关闭连接
         ClitenContextMap.clear();
     }
 
