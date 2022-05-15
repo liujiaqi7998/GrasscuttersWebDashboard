@@ -10,4 +10,8 @@ public class PlayerWebKey {
     public Player getPlayer() {
         return player;
     }
+
+    public void setTime(long currentTimeMillis) {
+        this.getTime = currentTimeMillis;
+    }
 }

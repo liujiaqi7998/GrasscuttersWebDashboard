@@ -67,6 +67,9 @@ public class WebSocketServer {
                 }
                 //获取消息
                 String Ws_Msg = wsMessageContext.message();
+                //延长验证码时间
+                NowPlayerWebKey.setTime(System.currentTimeMillis());
+
                 WsMsg wsMsg;
                 try {
                     wsMsg = Grasscutter.getGsonFactory().fromJson(Ws_Msg, WsMsg.class);
