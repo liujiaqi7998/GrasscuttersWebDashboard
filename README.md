@@ -8,7 +8,7 @@
 
 **2.0版本更新需要删除1.0版本的配置文件！！**
 
-功能介绍
+提交bug之前请先看看[提问的智慧]([How-To-Ask-Questions-The-Smart-Way/README-zh_CN.md at main · ryanhanwu/How-To-Ask-Questions-The-Smart-Way (github.com)](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md))，对于无用的提问我会自己Close掉
 
 - [x] 服主WEB控制台
 - [x] 服务器成员WebTools网页管理器（2.x版本功能完善）
