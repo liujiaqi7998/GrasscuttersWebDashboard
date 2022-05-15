@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes" />
     <link rel="stylesheet" href="css/mui.min.css">
     <script src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/qrcode.min.js"></script>
     <header class="mui-bar mui-bar-nav">
         <h1 class="mui-title">Grasscutters 网页控制台</h1>
     </header>
@@ -16,6 +17,10 @@
 
 <body>
 <div class="mui-content">
+    <div class="mui-card" style="margin-bottom: 35px;">
+        <div class="mui-card-header">扫描二维码也可以打开这个页面</div>
+        <div id="qrcode"></div>
+    </div>
     <div class="mui-card">
         <div class="mui-card-header">运行状态</div>
         <div class="mui-card-content">
@@ -123,10 +128,20 @@
             });
             return;
         }
+
         try {
             //判断server_address是否是一个有效的websocket地址
             ws = new WebSocket(server_address);
             ws.onopen = function () {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + ServerAddress ,
+                    width: 180,
+                    height: 180,
+                    //居中
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
                 console.log("连接成功");
                 mui.toast("连接成功");
                 ws.send("{\"type\":\"State\",\"data\":\"0\"}");

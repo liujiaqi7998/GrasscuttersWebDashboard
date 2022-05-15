@@ -21,6 +21,7 @@
     <script type="text/javascript" src="js/cheat/monster.js"></script>
     <script type="text/javascript" src="js/cheat/scene.js"></script>
     <script type="text/javascript" src="js/cheat/quest.js"></script>
+    <script type="text/javascript" src="js/qrcode.min.js"></script>
     <style>
         .hidden {
             display: none;
@@ -34,6 +35,11 @@
 
 <body>
 <div class="mui-content">
+
+    <div class="mui-card" style="margin-bottom: 35px;">
+        <div class="mui-card-header">扫描二维码也可以打开这个页面</div>
+        <div id="qrcode"></div>
+    </div>
 
     <div class="mui-card" style="margin-bottom: 35px;">
         <div class="mui-card-header">在线玩家 <br>传送前请先刷新一下列表
@@ -296,6 +302,15 @@
         try {
             ws = new WebSocket(ServerAddress + "?key=" + ServerKey)
             ws.onopen = function () {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/webtools.html?server=" + ServerAddress + "&key=" + ServerKey,
+                    width: 180,
+                    height: 180,
+                    //居中
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
                 console.log("连接成功");
                 heartCheck.reset().start();
                 updatePlayerList();
