@@ -1287,6 +1287,15 @@ archive-type@^4.0.0:
   dependencies:
     file-type "^4.2.0"
 
+arco-design-pro-vue@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.npmmirror.com/arco-design-pro-vue/-/arco-design-pro-vue-2.4.1.tgz#e7e1faaa340cc958681485a1bbc927c8b18f4a2f"
+  integrity sha512-LrFPg+e0oIfCBceiclSwa53nwSjBR5Kf77NEqm1FPJZqCYE0DME8JbYqtl2Q9XEmkXapD4eWm8QD5pwjDArn+w==
+  dependencies:
+    fs-extra "^10.0.0"
+    minimist "^1.2.5"
+    prettier "^2.5.1"
+
 argparse@^1.0.7:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
@@ -6276,6 +6285,11 @@ prettier@^2.2.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
   integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
+
+prettier@^2.5.1:
+  version "2.6.2"
+  resolved "https://registry.npmmirror.com/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
+  integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

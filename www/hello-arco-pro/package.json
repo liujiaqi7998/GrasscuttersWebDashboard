@@ -31,6 +31,7 @@
     "@arco-design/web-vue": "^2.25.0",
     "@types/mockjs": "^1.0.4",
     "@vueuse/core": "^7.3.0",
+    "arco-design-pro-vue": "^2.4.1",
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
     "echarts": "^5.2.2",
