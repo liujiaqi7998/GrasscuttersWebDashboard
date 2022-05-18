@@ -1,0 +1,112 @@
+
+[
+  {
+      "label": "生命值",
+      "value": "hp"
+  },
+  {
+      "label": "最大生命值",
+      "value": "maxhp"
+  },
+  {
+      "label": "攻击力",
+      "value": "atk"
+  },
+  {
+      "label": "元素精通",
+      "value": "em"
+  },
+  {
+      "label": "元素充能效率",
+      "value": "er"
+  },
+  {
+      "label": "暴击率",
+      "value": "crate"
+  },
+  {
+      "label": "暴击伤害",
+      "value": "cdmg"
+  },
+  {
+      "label": "冷却缩减",
+      "value": "cdr"
+  },
+  {
+      "label": "治疗加成",
+      "value": "heal"
+  },
+  {
+      "label": "受治疗加成",
+      "value": "heali"
+  },
+  {
+      "label": "护盾强效",
+      "value": "shield"
+  },
+  {
+      "label": "无视防御",
+      "value": "defi"
+  },
+  {
+      "label": "元素增伤 火",
+      "value": "epyro"
+  },
+  {
+      "label": "元素增伤 冰",
+      "value": "ecryo"
+  },
+  {
+      "label": "元素增伤 水",
+      "value": "ehydro"
+  },
+  {
+      "label": "元素增伤 岩",
+      "value": "egeo"
+  },
+  {
+      "label": "元素增伤 草",
+      "value": "edendro"
+  },
+  {
+      "label": "元素增伤 雷",
+      "value": "eelectro"
+  },
+  {
+      "label": "元素增伤 物理",
+      "value": "ephys"
+  },
+  {
+      "label": "元素增伤 草",
+      "value": ""
+  },
+  {
+      "label": "元素抗性 火",
+      "value": "respyro"
+  },
+  {
+      "label": "元素抗性 冰",
+      "value": "rescryo"
+  },
+  {
+      "label": "元素抗性 水",
+      "value": "reshydro"
+  },
+  {
+      "label": "元素抗性 岩",
+      "value": "resgeo"
+  },
+  {
+      "label": "元素抗性 草",
+      "value": "resdendro"
+  },
+  {
+      "label": "元素抗性 雷",
+      "value": "reselectro"
+  },
+  {
+      "label": "元素抗性 物理",
+      "value": "resphys"
+  }
+  
+]
