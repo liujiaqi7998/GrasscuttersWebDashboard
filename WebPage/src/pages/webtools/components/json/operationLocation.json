@@ -1,0 +1,14 @@
+[
+  {
+    "label": "传送",
+    "value": [
+      "tpm go @"
+    ]
+  },
+  {
+    "label": "删除",
+    "value": [
+      "tpm del @"
+    ]
+  }
+]
