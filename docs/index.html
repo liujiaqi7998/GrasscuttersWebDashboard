@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes"/>
     <link rel="stylesheet" href="css/mui.min.css">
     <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="js/qrcode.min.js"></script>
@@ -18,10 +19,12 @@
 <body>
 <div class="mui-content">
     <div class="mui-card" style="margin-bottom: 35px;">
-        <div class="mui-card-header">扫描二维码也可以打开这个页面</div>
-        <a type="button" data-loading-text="请稍后" class="mui-btn"
-           href="https://wmn1525.github.io/grasscutterTools/dist/index.html#/start/login">使用@wmn1525的面板</a>
-        <div id="qrcode"></div>
+        <div class="mui-card-header">扫描二维码也可以打开这个页面
+            <a type="button" data-loading-text="请稍后" class="mui-btn"
+               href="https://wmn1525.github.io/grasscutterTools/dist/index.html#/start/login">使用@wmn1525的面板</a>
+            <div id="qrcode"></div>
+        </div>
+
     </div>
     <div class="mui-card">
         <div class="mui-card-header">运行状态</div>
@@ -136,20 +139,20 @@
             ws = new WebSocket(server_address);
             ws.onopen = function () {
                 new QRCode(document.getElementById("qrcode"), {
-                    text: "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + ServerAddress ,
+                    text: "https://liujiaqi7998.github.io/GrasscuttersWebDashboard/index.html?server=" + ServerAddress,
                     width: 180,
                     height: 180,
                     //居中
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
                 });
                 console.log("连接成功");
                 mui.toast("连接成功");
                 ws.send("{\"type\":\"State\",\"data\":\"0\"}");
                 ws.send("{\"type\":\"Player\",\"data\":\"0\"}");
             }
-        }catch (e) {
+        } catch (e) {
             mui.alert(e.toString(), "连接失败", "刷新", function () {
                 location.reload();
             });
