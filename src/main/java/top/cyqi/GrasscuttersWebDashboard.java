@@ -93,7 +93,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
     public void onEnable() {
         webSocketServer = new WebSocketServer();
         webSocketServer.start();
-        serverTickEventHandler.register();
+        serverTickEventHandler.register(this);
         // Register event listeners.
 
         // create and start a ListAppender
