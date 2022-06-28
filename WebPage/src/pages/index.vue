@@ -47,11 +47,8 @@ function Go_old() {
     </div>
     <div class="start">
       <router-link to="/webtools/login" class="mr-3 flex-none w-[3.0625rem] md:w-auto leading-6 dark:text-slate-200">
-        使用新版本
+        点我开始吧
       </router-link>
-    </div>
-    <div class="start">
-      <a-button href="./webtools_old.html">使用旧版本</a-button>
     </div>
   </div>
 </template>

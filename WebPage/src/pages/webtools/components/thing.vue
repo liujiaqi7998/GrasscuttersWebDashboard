@@ -22,6 +22,9 @@ var value3 = ref('give')
 var num = ref()
 
 const value = computed(() => {
+  if(value3.value == 'give') {
+    return `${value3.value} ${value2.value} x${num.value}`
+  }
   return `${value3.value} ${value2.value} ${num.value}`
 })
 const options = reactive(thing)
