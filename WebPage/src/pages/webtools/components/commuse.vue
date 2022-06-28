@@ -20,7 +20,7 @@ var value2 = ref(223)
 var num = ref(1000)
 
 const value = computed(() => {
-  return `give ${value2.value} ${num.value}`
+  return `give ${value2.value} x${num.value}`
 })
 const options = reactive([
   {
