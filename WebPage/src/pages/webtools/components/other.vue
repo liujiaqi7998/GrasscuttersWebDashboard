@@ -33,6 +33,34 @@ const options = reactive([
     title: '设置世界等级为8级',
     value: 'setworldlevel 8',
   },
+  {
+    title: '升到60级',
+    value: 'give 102 x1880200',
+  },
+  {
+    title: '设置羁绊等级8级',
+    value: 'setfetterlevel 8',
+  },
+  {
+    title: '清空背包',
+    value: 'clear all',
+  },
+  {
+    title: '清空武器',
+    value: 'clear wp',
+  },
+  {
+    title: '清空圣物',
+    value: 'clear art',
+  },
+  {
+    title: '清空材料',
+    value: 'clear mat',
+  },
+  {
+    title: '获取全部物品',
+    value: 'give all',
+  },
 ])
 const message = Message
 

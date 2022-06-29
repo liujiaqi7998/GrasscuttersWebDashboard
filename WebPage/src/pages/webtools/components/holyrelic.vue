@@ -21,7 +21,7 @@ function send(cmd: string) {
 var holyrelicnamevalue = ref('')
 var holyrelicnmainvalue = ref('')
 
-var grade = ref(0)
+var grade = ref(1)
 var num = ref()
 
 const value = computed(() => {
@@ -31,9 +31,7 @@ const value = computed(() => {
       xct = xct + ` ${k.value},${k.num}`
     }
   })
-  return `giveart ${holyrelicnamevalue.value} ${holyrelicnmainvalue.value}${xct} ${
-    grade.value + 1
-  }`
+  return `give ${holyrelicnamevalue.value} lv${grade.value + 1} ${holyrelicnmainvalue.value}${xct} `
 })
 const options = reactive(holyrelicname)
 
@@ -99,7 +97,7 @@ function copyvalue() {
     <div class="commuse-item">
       <div class="text-slate-900 dark:text-slate-100"> 强化等级: </div>
 
-      <a-input-number placeholder="" v-model="grade" :min="0" :max="20" />
+      <a-input-number placeholder="" v-model="grade" :min="1" :max="20" />
     </div>
 
     <div class="generate">

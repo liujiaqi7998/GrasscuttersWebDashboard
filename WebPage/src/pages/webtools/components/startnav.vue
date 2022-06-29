@@ -19,6 +19,7 @@ const datav = reactive([
   { name: '怪物生成', path: "/webtools/monster" },
   { name: '武器', path: "/webtools/weapon" },
   { name: '角色属性', path: "/webtools/role" },
+  { name: '技能等级', path: "/webtools/talent" },
   { name: '场景', path: "/webtools/scene" },
   { name: '剧情', path: "/webtools/quest" }
 ])

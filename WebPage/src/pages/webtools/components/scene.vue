@@ -30,9 +30,6 @@ function go_in_safe() {
   send(`tp 0 10 0 ${value2.value}`);
 }
 
-function go_in() {
-  send(`changescene ${value2.value}`);
-}
 
 function back_home() {
   send(`tp 2270.885 220.09885 -866.60046 3`);
@@ -50,7 +47,6 @@ function back_home() {
 
     <a-space direction="vertical">
       <a-button type="outline" @click="go_in_safe">安全进入（进入后传送到坐标 0 20 0）</a-button>
-      <a-button type="outline" @click="go_in">直接进入</a-button>
       <a-button type="outline" @click="back_home">玩坏了？返回蒙德城</a-button>
     </a-space>
   </div>

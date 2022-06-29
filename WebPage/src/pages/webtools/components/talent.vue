@@ -3,8 +3,6 @@
 import { reactive, ref, computed } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import { Message } from '@arco-design/web-vue'
-import weapon from './json/weapon.json'
-const { text, isSupported, copy } = useClipboard()
 import { useAppStore } from '@/store/modules/app'
 const appStore = useAppStore()
 function send(cmd: string) {
@@ -16,15 +14,32 @@ function send(cmd: string) {
   appStore.socketSend(send_msg_str)
 }
 
-var value2 = ref(12510)
-var num = ref(5)
-var grade = ref(90)
-var refined = ref(5)
+var role = [
+  {
+    "label": "普通攻击",
+    "value": "n"
+  },
+  {
+    "label": "Q技能",
+    "value": "q"
+  },
+  {
+    "label": "E技能",
+    "value": "e"
+  }
+]
+
+const { text, isSupported, copy } = useClipboard()
+
+var value2 = ref("hp")
+var num = ref()
+
 
 const value = computed(() => {
-  return `give ${value2.value} x${num.value} lv${grade.value} r${refined.value}`
+  return `talent  ${value2.value} ${num.value}`
 })
-const options = reactive(weapon)
+const options = reactive(role)
+const message = Message
 
 function copyvalue() {
   send(value.value);
@@ -33,40 +48,16 @@ function copyvalue() {
 
 <template>
   <div class="commuse">
+    <div class="title"> 技能等级 </div>
 
     <div class="commuse-item">
-      <div class="text-slate-900 dark:text-slate-100"> 武器: </div>
-      <a-cascader
-        allow-search
-        v-model="value2"
-        :options="options"
-        placeholder="请输入物品"
-        filterable
-      />
+      <div class="text-slate-900 dark:text-slate-100"> 技能: </div>
+      <a-cascader allow-search v-model="value2" :options="options" placeholder="" filterable />
     </div>
-    <div class="commuse-item">
-      <div class="text-slate-900 dark:text-slate-100"> 数量: </div>
-      <a-input-number v-model="num" placeholder="" mode="button" size="large" class="input-demo" />
-    </div>
+
     <div class="commuse-item">
       <div class="text-slate-900 dark:text-slate-100"> 等级: </div>
-      <a-input-number
-        v-model="grade"
-        placeholder="请输入"
-        mode="button"
-        size="large"
-        class="input-demo"
-      />
-    </div>
-    <div class="commuse-item">
-      <div class="text-slate-900 dark:text-slate-100"> 精炼等级: </div>
-      <a-input-number
-        v-model="refined"
-        placeholder="请输入"
-        mode="button"
-        size="large"
-        class="input-demo"
-      />
+      <a-input-number v-model="num" placeholder="" mode="button" size="large" class="input-demo" />
     </div>
     <div class="generate">
       <a-input v-model="value" placeholder="" />
@@ -78,6 +69,12 @@ function copyvalue() {
 .commuse {
   width: 500px;
   margin: auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0;
 }
 
 .commuse-item {

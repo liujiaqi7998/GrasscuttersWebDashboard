@@ -58,6 +58,10 @@ let constantRoutes = [
       {
         path: "/webtools/login",
         component: () => import('@/pages/webtools/components/login.vue'),
+      },
+      {
+        path: "/webtools/talent",
+        component: () => import('@/pages/webtools/components/talent.vue'),
       }
     ]
   }

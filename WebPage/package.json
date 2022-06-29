@@ -1,7 +1,7 @@
 {
-  "name": "grasscutter-tools",
-  "version": "0.1.1",
-  "author": "wmn1525",
+  "name": "grasscutter-webtools",
+  "version": "0.2.1",
+  "author": "666Qi",
   "scripts": {
     "dev": "vite --mode development",
     "build": "vue-tsc --noEmit && vite build",
