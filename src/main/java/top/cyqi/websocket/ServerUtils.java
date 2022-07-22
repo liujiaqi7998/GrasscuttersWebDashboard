@@ -48,7 +48,7 @@ public class ServerUtils {
             playerData.headImage = player.getHeadImage();
             playerData.worldLevel = player.getWorldLevel();
             playerData.Level = player.getLevel();
-            playerData.pos = player.getPos().toString();
+            playerData.pos = player.getPosition().toString();
             playerData.SceneId = player.getSceneId();
             playerDatas.add(playerData);
         }
@@ -99,7 +99,7 @@ public class ServerUtils {
             transferData.uid = String.valueOf(tpm.getOwnerUid());
             transferData.Name = tpm.getTransferName();
             transferData.SceneId = String.valueOf(tpm.getSavePlayerState().getSceneId());
-            transferData.pos = tpm.getSavePlayerState().getPos().toString();
+            transferData.pos = tpm.getSavePlayerState().getPosition().toString();
             SendtpmDatas.add(transferData);
         }
         wsMessageContext.send(new WSData("TPMList", SendtpmDatas));

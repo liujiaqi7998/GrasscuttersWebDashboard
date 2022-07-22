@@ -78,7 +78,7 @@ public class tpmPluginCommand implements CommandHandler {
 
                 int SceneId = playerState.getSceneId();
 
-                boolean result = targetPlayer.getWorld().transferPlayerToScene(targetPlayer, SceneId, playerState.getPos());
+                boolean result = targetPlayer.getWorld().transferPlayerToScene(targetPlayer, SceneId, playerState.getPosition());
                 if (result) {
                     CommandHandler.sendMessage(sender, "[tpm传送] 传送成功: 传送点 " + name + " 已传送");
                 } else {

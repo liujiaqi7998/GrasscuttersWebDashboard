@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
@@ -28,8 +29,8 @@
             <groupId>xyz.grasscutters</groupId>
             <artifactId>grasscutter</artifactId>
             <scope>system</scope>
-            <version>dev-ca27c39</version>
-            <systemPath>${project.basedir}/lib/grasscutter-1.2.2-dev-ca27c39.jar</systemPath>
+            <version>dev-beb6906</version>
+            <systemPath>${project.basedir}/lib/grasscutter-1.2.3-dev-beb6906.jar</systemPath>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>xyz.grasscutters</groupId>-->
