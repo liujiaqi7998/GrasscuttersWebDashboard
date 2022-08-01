@@ -29,7 +29,7 @@
             <artifactId>grasscutter</artifactId>
             <scope>system</scope>
             <version>dev-3f9b172</version>
-            <systemPath>${project.basedir}/lib/grasscutter-1.2.3-dev-3f9b172.jar</systemPath>
+            <systemPath>${project.basedir}/lib/grasscutter-1.2.3-dev-beb6906.jar</systemPath>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>xyz.grasscutters</groupId>-->
