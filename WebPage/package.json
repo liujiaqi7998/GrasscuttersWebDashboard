@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.25.2",
+    "@types/jsqrcode": "^1.0.4",
     "@vueuse/components": "^8.3.1",
     "@vueuse/core": "^8.3.1",
     "axios": "^0.27.2",
@@ -25,6 +26,8 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.13",
     "plop": "^3.1.0",
+    "qrcodejs": "^1.0.0",
+    "qrcodejs2": "^0.0.2",
     "qs": "^6.10.3",
     "vue": "^3.2.33",
     "vue-router": "^4.0.14"
@@ -32,6 +35,7 @@
   "devDependencies": {
     "@types/node": "^17.0.29",
     "@types/nprogress": "^0.2.0",
+    "@types/qrcodejs": "^1.0.0",
     "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",

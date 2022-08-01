@@ -11,7 +11,6 @@ import java.util.List;
 
 @Command(label = "tpm",
         usage = "tpm <go|add|del|delall|list> [Name]",
-        description = "传送标记系统",
         aliases = {"tpm"},
         permission = "GrasscuttersWebDashboard.tpm")
 
@@ -78,7 +77,7 @@ public class tpmPluginCommand implements CommandHandler {
 
                 int SceneId = playerState.getSceneId();
 
-                boolean result = targetPlayer.getWorld().transferPlayerToScene(targetPlayer, SceneId, playerState.getPos());
+                boolean result = targetPlayer.getWorld().transferPlayerToScene(targetPlayer, SceneId, playerState.getPosition());
                 if (result) {
                     CommandHandler.sendMessage(sender, "[tpm传送] 传送成功: 传送点 " + name + " 已传送");
                 } else {

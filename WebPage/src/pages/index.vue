@@ -34,6 +34,8 @@ function Go_old() {
   window.location.href = './webtools_old.html?server=' + ServerAddress.value + '&key=' + ServerKey.value
 }
 
+
+
 </script>
 
 <template>

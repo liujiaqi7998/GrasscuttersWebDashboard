@@ -15,7 +15,6 @@ import java.util.Map;
 
 @Command(label = "webtools",
         usage = "webtools",
-        description = "发送 webtools 验证码邮件",
         aliases = {"webt", "wt"},
         permission = "GrasscuttersWebDashboard.webtools")
 public class webtoolsPluginCommand implements CommandHandler {
