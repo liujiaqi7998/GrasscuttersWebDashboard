@@ -26,9 +26,14 @@ public class ServerUtils {
         String ws_id = WebSocketServer.ClitenContextMap.get(wsMessageContext);
         switch (type) {
             case "CMD" -> {
-                Grasscutter.getLogger().info("[WEB控制台] 执行" + ws_id + "的命令:" + data);
-                CommandMap commandMap = Grasscutter.getGameServer().getCommandMap();
-                commandMap.invoke(null, null, data);
+                try {
+                    Grasscutter.getLogger().info("[WEB控制台] 执行" + ws_id + "的命令:" + data);
+                    CommandMap commandMap = Grasscutter.getCommandMap();
+                    commandMap.invoke(null, null, data);
+                } catch (Exception e) {
+                    Grasscutter.getLogger().info("[WEB控制台] 执行命令:" + data + "发生错误:" + e.getMessage());
+                }
+
             }
             case "State" -> wsMessageContext.send(new WSData("BaseData", GrasscuttersWebDashboard.baseData));
             case "Player" -> showPlayerList(wsMessageContext);
@@ -62,7 +67,7 @@ public class ServerUtils {
                 resultCollector.wsMessageContext = wsMessageContext;
                 resultCollector.player = player;
                 player.setMessageHandler(resultCollector);
-                CommandMap commandMap = Grasscutter.getGameServer().getCommandMap();
+                CommandMap commandMap = Grasscutter.getCommandMap();
                 try {
                     commandMap.invoke(player, player, data);
                 } catch (Exception e) {
