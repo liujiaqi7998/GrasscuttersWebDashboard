@@ -2,6 +2,7 @@ package top.cyqi;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
+import com.google.gson.Gson;
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.CommandMap;
 import emu.grasscutter.config.ConfigContainer;
@@ -12,13 +13,12 @@ import emu.grasscutter.server.event.HandlerPriority;
 import emu.grasscutter.server.event.game.ServerTickEvent;
 import emu.grasscutter.server.game.GameServer;
 import emu.grasscutter.server.http.HttpServer;
-import emu.grasscutter.config.ConfigContainer;
 import top.cyqi.PluginCommand.tpmPluginCommand;
-import top.cyqi.handlers.ServerTickHandler;
-import top.cyqi.utils.Utils;
 import top.cyqi.PluginCommand.webtoolsPluginCommand;
-import top.cyqi.utils.PluginConfig;
+import top.cyqi.handlers.ServerTickHandler;
 import top.cyqi.handlers.WebConsoleListAppender;
+import top.cyqi.utils.PluginConfig;
+import top.cyqi.utils.Utils;
 import top.cyqi.utils.WebUtils;
 import top.cyqi.websocket.WebSocketServer;
 import top.cyqi.websocket.json.BaseData;
@@ -63,7 +63,7 @@ public final class GrasscuttersWebDashboard extends Plugin {
                 }
             }
             // Put the configuration into an instance of the config class.
-            this.configuration = Grasscutter.getGsonFactory().fromJson(new FileReader(config), PluginConfig.class);
+            this.configuration = new Gson().fromJson(new FileReader(config), PluginConfig.class);
         } catch (IOException exception) {
             Grasscutter.getLogger().error("[WEB控制台] 配置文件读取错误", exception);
             return;

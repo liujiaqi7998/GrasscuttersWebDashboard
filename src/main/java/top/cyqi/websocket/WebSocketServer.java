@@ -1,5 +1,6 @@
 package top.cyqi.websocket;
 
+import com.google.gson.Gson;
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.game.player.Player;
 import io.javalin.Javalin;
@@ -72,7 +73,7 @@ public class WebSocketServer {
 
                 WsMsg wsMsg;
                 try {
-                    wsMsg = Grasscutter.getGsonFactory().fromJson(Ws_Msg, WsMsg.class);
+                    wsMsg = new Gson().fromJson(Ws_Msg, WsMsg.class);
                 } catch (Exception e) {
                     wsMessageContext.send(new WSData("tip", "消息格式处理异常"));
                     e.printStackTrace();
@@ -107,7 +108,7 @@ public class WebSocketServer {
                 String Ws_Msg = wsMessageContext.message();
                 WsMsg wsMsg;
                 try {
-                    wsMsg = Grasscutter.getGsonFactory().fromJson(Ws_Msg, WsMsg.class);
+                    wsMsg = new Gson().fromJson(Ws_Msg, WsMsg.class);
                 } catch (Exception e) {
                     wsMessageContext.send(new WSData("tip", "消息格式处理异常"));
                     e.printStackTrace();
